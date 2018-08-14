@@ -14,10 +14,10 @@ public final class JDBCDAOFactory extends DAOFactory {
     return new JDBCSubjectDAO(newConnection());
   }
 
-  private Connection newConnection() {
+  private static Connection newConnection() {
     try {
       return DriverManager.getConnection(
-          "jdbc:mysql://localhost:3306/form_db?serverTimezone=UTC", "root",
+          "jdbc:mysql://127.0.0.1:3306/enrollment?serverTimezone=UTC", "root",
           "1337");
     } catch (SQLException e) {
       throw new RuntimeException(e);

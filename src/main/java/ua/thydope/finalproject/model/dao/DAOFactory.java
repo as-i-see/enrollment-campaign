@@ -3,7 +3,7 @@ package ua.thydope.finalproject.model.dao;
 import ua.thydope.finalproject.model.subject.SubjectDAO;
 
 public abstract class DAOFactory {
-  private static DAOFactory factory;
+  private static volatile DAOFactory factory;
 
   public abstract SubjectDAO subjectDAO();
 
@@ -11,8 +11,7 @@ public abstract class DAOFactory {
     if (factory == null) {
       synchronized (DAOFactory.class) {
         if (factory == null) {
-          DAOFactory temp = new JDBCDAOFactory();
-          factory = temp;
+          factory = new JDBCDAOFactory();
         }
       }
     }

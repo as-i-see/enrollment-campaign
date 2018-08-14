@@ -30,9 +30,9 @@ public final class JDBCSubjectDAO extends JDBCDAO implements SubjectDAO {
 
   @Override
   public List<Subject> findAll() {
-    try {
-      Statement query = super.connection.createStatement();
-      ResultSet subject = query.executeQuery("SELECT (id, name) FROM subject");
+    try (Statement query = super.connection.createStatement();
+        ResultSet subject = query
+            .executeQuery("SELECT id, name FROM subjects")) {
       List<Subject> list = new ArrayList<>();
       while (subject.next()) {
         int id = subject.getInt(1);

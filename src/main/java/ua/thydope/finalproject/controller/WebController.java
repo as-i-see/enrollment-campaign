@@ -2,7 +2,6 @@ package ua.thydope.finalproject.controller;
 
 import java.io.IOException;
 
-import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,38 +9,47 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ua.thydope.finalproject.controller.requesthandling.command.Command;
+import ua.thydope.finalproject.controller.requesthandling.command.CommandFactory;
+import ua.thydope.finalproject.controller.requesthandling.command.URICommandFactory;
+
 /**
  * Servlet implementation class WebController
  */
-@WebServlet("/pattern")
+@WebServlet("/")
 public class WebController extends HttpServlet {
-  private static final long serialVersionUID = 1L;
 
-  /**
-   * Default constructor.
-   */
+  private static CommandFactory<String> commandFactory;
 
-  public WebController() {
-    // TODO Auto-generated constructor stub
-  }
-
-  /**
-   * @see Servlet#init(ServletConfig)
-   */
   @Override
   public void init(ServletConfig config) throws ServletException {
-    // TODO Auto-generated method stub
+    super.init(config);
+    commandFactory = new URICommandFactory();
   }
 
   /**
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
    *      response)
    */
+
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    // TODO Auto-generated method stub
-    response.getWriter().append("Served at: ").append(request.getContextPath());
+    response.setContentType("text/html");
+    response.setCharacterEncoding("UTF-8");
+    request.setCharacterEncoding("UTF-8");
+    String path = request.getRequestURI();
+    path = path.replaceAll(".*/", "");
+    Command command = commandFactory.getCommand(path).orElse(new Command() {
+
+      @Override
+      public String perform(HttpServletRequest req) {
+        return "index.jsp";
+      }
+
+    });
+    String page = command.perform(request);
+    request.getRequestDispatcher(page).forward(request, response);
   }
 
   /**
@@ -51,7 +59,6 @@ public class WebController extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
-    // TODO Auto-generated method stub
     doGet(request, response);
   }
 
