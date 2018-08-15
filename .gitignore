@@ -9,3 +9,4 @@ settings.gradle
 gradlew
 gradlew.bat
 .classpath
+logs
