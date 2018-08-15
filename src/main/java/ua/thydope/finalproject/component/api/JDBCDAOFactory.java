@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import ua.thydope.finalproject.component.account.AccountDAO;
+import ua.thydope.finalproject.component.account.DBAccountDAO;
 import ua.thydope.finalproject.component.subject.JDBCSubjectDAO;
 import ua.thydope.finalproject.component.subject.SubjectDAO;
 
@@ -12,6 +14,11 @@ public final class JDBCDAOFactory extends DAOFactory {
   @Override
   public SubjectDAO subjectDAO() {
     return new JDBCSubjectDAO(newConnection());
+  }
+
+  @Override
+  public AccountDAO accountDAO() {
+    return new DBAccountDAO(newConnection());
   }
 
   private static Connection newConnection() {

@@ -10,14 +10,14 @@ Configuration:
     RollingFile:
       name: RollingFile
       fileName: "./logs/enrollment.log"
-      filePattern: "./logs/$${date:dd-MM-yyyy}/%d{HH-mm}-enrollment-%i.log"
+      filePattern: "./logs/$${date:dd-MM-yyyy}/%d{HH:mm}-enrollment.log"
       PatternLayout:
-        Pattern: "%d %p %C{1.} [%t] %m%n"
+        Pattern: "%d %p %C{1.} %m%n"
       Policies:
         OnStartupTriggeringPolicy:
            minSize: 0
         SizeBasedTriggeringPolicy:
-           size: "1MB"
+           size: "10MB"
         TimeBasedTriggeringPolicy:
            interval: 60
   Loggers:

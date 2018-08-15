@@ -2,12 +2,10 @@ package ua.thydope.finalproject.component.subject;
 
 import java.util.List;
 
-public class SubjectService {
-  private SubjectDAO dao;
+import ua.thydope.finalproject.component.api.DAOFactory;
 
-  public SubjectService(SubjectDAO dao) {
-    this.dao = dao;
-  }
+public class SubjectService {
+  private SubjectDAO dao = DAOFactory.getInstance().subjectDAO();
 
   public List<Subject> getAllSubjects() {
     return dao.findAll();

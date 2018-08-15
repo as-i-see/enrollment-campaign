@@ -1,7 +1,25 @@
 package ua.thydope.finalproject.controller.request.command;
 
-import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 
-public interface CommandFactory<T> {
-  Optional<Command> getCommand(T location);
+import ua.thydope.finalproject.component.account.AccountService;
+import ua.thydope.finalproject.component.subject.SubjectService;
+
+public class CommandFactory {
+
+  public static Command getCommand(String location) {
+    switch (location) {
+    case "subjects":
+      return new SubjectsListCommand(new SubjectService());
+    case "login":
+      return new LoginCommand(new AccountService());
+    default:
+      return new Command() {
+        @Override
+        public String perform(HttpServletRequest req) {
+          return "error.jsp";
+        }
+      };
+    }
+  }
 }

@@ -2,7 +2,6 @@ package ua.thydope.finalproject.controller;
 
 import java.io.IOException;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,22 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import ua.thydope.finalproject.controller.request.command.Command;
 import ua.thydope.finalproject.controller.request.command.CommandFactory;
-import ua.thydope.finalproject.controller.request.command.URICommandFactory;
 
 /**
  * Servlet implementation class WebController
  */
 @WebServlet("/")
 public class WebController extends HttpServlet {
-
-  private static CommandFactory<String> commandFactory;
-
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    commandFactory = new URICommandFactory();
-  }
-
   /**
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
    *      response)
@@ -40,14 +29,7 @@ public class WebController extends HttpServlet {
     request.setCharacterEncoding("UTF-8");
     String path = request.getRequestURI();
     path = path.replaceAll(".*/", "");
-    Command command = commandFactory.getCommand(path).orElse(new Command() {
-
-      @Override
-      public String perform(HttpServletRequest req) {
-        return "index.jsp";
-      }
-
-    });
+    Command command = CommandFactory.getCommand(path);
     String page = command.perform(request);
     request.getRequestDispatcher(page).forward(request, response);
   }
