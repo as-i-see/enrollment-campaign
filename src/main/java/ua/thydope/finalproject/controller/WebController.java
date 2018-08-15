@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ua.thydope.finalproject.controller.requesthandling.command.Command;
-import ua.thydope.finalproject.controller.requesthandling.command.CommandFactory;
-import ua.thydope.finalproject.controller.requesthandling.command.URICommandFactory;
+import ua.thydope.finalproject.controller.request.command.Command;
+import ua.thydope.finalproject.controller.request.command.CommandFactory;
+import ua.thydope.finalproject.controller.request.command.URICommandFactory;
 
 /**
  * Servlet implementation class WebController

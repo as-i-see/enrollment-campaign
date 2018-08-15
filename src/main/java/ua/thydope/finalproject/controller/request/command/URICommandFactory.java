@@ -1,4 +1,4 @@
-package ua.thydope.finalproject.controller.requesthandling.command;
+package ua.thydope.finalproject.controller.request.command;
 
 import java.util.Optional;
 
