@@ -1,4 +1,4 @@
-package ua.thydope.finalproject.model.subject;
+package ua.thydope.finalproject.component.subject;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import ua.thydope.finalproject.model.dao.JDBCDAO;
+import ua.thydope.finalproject.component.api.JDBCDAO;
 
 public final class JDBCSubjectDAO extends JDBCDAO implements SubjectDAO {
 

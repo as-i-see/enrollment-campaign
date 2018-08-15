@@ -1,6 +1,6 @@
-package ua.thydope.finalproject.model.dao;
+package ua.thydope.finalproject.component.api;
 
-import ua.thydope.finalproject.model.subject.SubjectDAO;
+import ua.thydope.finalproject.component.subject.SubjectDAO;
 
 public abstract class DAOFactory {
   private static volatile DAOFactory factory;

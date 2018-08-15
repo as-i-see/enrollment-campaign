@@ -2,9 +2,9 @@ package ua.thydope.finalproject.controller.request.command;
 
 import java.util.Optional;
 
-import ua.thydope.finalproject.model.dao.DAOFactory;
-import ua.thydope.finalproject.model.subject.SubjectDAO;
-import ua.thydope.finalproject.model.subject.SubjectService;
+import ua.thydope.finalproject.component.api.DAOFactory;
+import ua.thydope.finalproject.component.subject.SubjectDAO;
+import ua.thydope.finalproject.component.subject.SubjectService;
 
 public class URICommandFactory implements CommandFactory<String> {
   @Override

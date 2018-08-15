@@ -1,10 +1,10 @@
-package ua.thydope.finalproject.model.enrollee;
+package ua.thydope.finalproject.component.enrollee;
 
 import java.time.LocalDate;
 import java.util.Map;
 
-import ua.thydope.finalproject.model.speciality.Speciality;
-import ua.thydope.finalproject.model.subject.Subject;
+import ua.thydope.finalproject.component.speciality.Speciality;
+import ua.thydope.finalproject.component.subject.Subject;
 
 public final class Enrollee {
   private long id;

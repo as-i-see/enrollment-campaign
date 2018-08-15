@@ -1,4 +1,4 @@
-package ua.thydope.finalproject.model.dao;
+package ua.thydope.finalproject.component.api;
 
 import java.sql.Connection;
 

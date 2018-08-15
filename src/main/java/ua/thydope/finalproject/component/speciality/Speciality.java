@@ -1,9 +1,9 @@
-package ua.thydope.finalproject.model.speciality;
+package ua.thydope.finalproject.component.speciality;
 
 import java.util.Set;
 
-import ua.thydope.finalproject.model.enrollee.Enrollee;
-import ua.thydope.finalproject.model.examination.Examination;
+import ua.thydope.finalproject.component.enrollee.Enrollee;
+import ua.thydope.finalproject.component.examination.Examination;
 
 public final class Speciality {
   private long id;

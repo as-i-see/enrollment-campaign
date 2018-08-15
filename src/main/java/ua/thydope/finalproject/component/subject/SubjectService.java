@@ -1,4 +1,4 @@
-package ua.thydope.finalproject.model.subject;
+package ua.thydope.finalproject.component.subject;
 
 import java.util.List;
 

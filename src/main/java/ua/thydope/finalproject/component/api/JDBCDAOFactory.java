@@ -1,11 +1,11 @@
-package ua.thydope.finalproject.model.dao;
+package ua.thydope.finalproject.component.api;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import ua.thydope.finalproject.model.subject.JDBCSubjectDAO;
-import ua.thydope.finalproject.model.subject.SubjectDAO;
+import ua.thydope.finalproject.component.subject.JDBCSubjectDAO;
+import ua.thydope.finalproject.component.subject.SubjectDAO;
 
 public final class JDBCDAOFactory extends DAOFactory {
 

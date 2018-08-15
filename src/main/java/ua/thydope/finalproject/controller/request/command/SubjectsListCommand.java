@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import ua.thydope.finalproject.model.subject.Subject;
-import ua.thydope.finalproject.model.subject.SubjectService;
+import ua.thydope.finalproject.component.subject.Subject;
+import ua.thydope.finalproject.component.subject.SubjectService;
 
 class SubjectsListCommand implements Command {
   private SubjectService subjectService;
