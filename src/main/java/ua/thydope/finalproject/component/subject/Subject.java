@@ -1,6 +1,8 @@
 package ua.thydope.finalproject.component.subject;
 
-public final class Subject {
+import ua.thydope.finalproject.component.api.Entity;
+
+public final class Subject implements Entity {
   private int id;
   private String name;
 
@@ -9,10 +11,12 @@ public final class Subject {
     this.name = name;
   }
 
+  @Override
   public int getId() {
     return id;
   }
 
+  @Override
   public void setId(int id) {
     this.id = id;
   }
