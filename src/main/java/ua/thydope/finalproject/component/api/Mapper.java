@@ -2,7 +2,7 @@ package ua.thydope.finalproject.component.api;
 
 import java.util.List;
 
-public abstract class Mapper<T extends Entity> {
+public abstract class Mapper<T extends Persistable> {
   protected IdentityMap<T> map = new IdentityMap<>();
   protected GenericDAO<T> dao;
 

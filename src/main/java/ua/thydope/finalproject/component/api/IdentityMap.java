@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 
 //TODO maybe generic key
-public final class IdentityMap<T extends Entity> {
+public final class IdentityMap<T extends Persistable> {
   private Map<Integer, T> map = new HashMap<>();
 
   public void add(T arg) {

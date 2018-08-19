@@ -1,8 +1,8 @@
 package ua.thydope.finalproject.component.subject;
 
-import ua.thydope.finalproject.component.api.Entity;
+import ua.thydope.finalproject.component.api.Persistable;
 
-public final class Subject implements Entity {
+public final class Subject implements Persistable {
   private int id;
   private String name;
 
