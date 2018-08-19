@@ -1,4 +1,4 @@
-package ua.thydope.finalproject.controller.request.command;
+package ua.thydope.finalproject.controller.frontcommand;
 
 import java.util.Optional;
 import java.util.Set;

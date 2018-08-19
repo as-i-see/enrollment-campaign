@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ua.thydope.finalproject.controller.request.command.Command;
-import ua.thydope.finalproject.controller.request.command.CommandFactory;
+import ua.thydope.finalproject.controller.frontcommand.Command;
+import ua.thydope.finalproject.controller.frontcommand.CommandFactory;
 
 /**
  * Servlet implementation class WebController

@@ -1,4 +1,4 @@
-package ua.thydope.finalproject.controller.request.command;
+package ua.thydope.finalproject.controller.frontcommand;
 
 import javax.servlet.http.HttpServletRequest;
 

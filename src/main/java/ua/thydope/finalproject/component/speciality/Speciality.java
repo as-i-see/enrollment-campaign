@@ -11,7 +11,7 @@ public final class Speciality implements Persistable {
   private String name;
   private int minEntryScore;
   private int licensedVolume;
-  private Set<Criterion> exams;
+  private Set<Criterion> criteria;
   private Set<Enrollee> enrollees;
 
   @Override
