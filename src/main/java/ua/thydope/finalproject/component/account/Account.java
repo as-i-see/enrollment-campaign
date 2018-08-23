@@ -7,8 +7,10 @@ import javax.servlet.http.HttpSessionBindingListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ua.thydope.finalproject.component.api.Distinguishable;
 
-public class Account implements HttpSessionBindingListener, Serializable {
+public class Account implements HttpSessionBindingListener, Serializable,
+        Distinguishable<Account.Key> {
   private static final long serialVersionUID = 1L;
   private static final Logger LOGGER = LoggerFactory
       .getLogger("ua.thydope.finalproject.logging.file");
@@ -63,4 +65,15 @@ public class Account implements HttpSessionBindingListener, Serializable {
         + ", role=" + role + "]";
   }
 
+  public class Key implements Distinguishable.Key<Account> {
+    @Override
+    public int compareTo(Account account) {
+      return 0;
+    }
+  }
+
+  @Override
+  public Account.Key getKey() {
+    return null;
+  }
 }

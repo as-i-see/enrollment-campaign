@@ -5,15 +5,15 @@ import java.util.Map;
 import java.util.Optional;
 
 //TODO maybe generic key
-public final class IdentityMap<T extends Persistable> {
-  private Map<Integer, T> map = new HashMap<>();
+public final class IdentityMap<T extends Distinguishable> {
+  private Map<T.Key, T> map = new HashMap<>();
 
   public void add(T arg) {
     // TODO simple put maybe
-    map.putIfAbsent(arg.getId(), arg);
+    map.putIfAbsent(arg.getKey(), arg);
   }
 
-  public Optional<T> get(int key) {
+  public Optional<T> get(T.Key key) {
     return Optional.ofNullable(map.get(key));
   }
 }

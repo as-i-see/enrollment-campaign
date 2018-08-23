@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import ua.thydope.finalproject.component.api.DaoFactory;
 import ua.thydope.finalproject.component.api.JdbcDaoFactory;
+import ua.thydope.finalproject.component.api.MapperRegistry;
+import ua.thydope.finalproject.component.api.Transaction;
 
 public class AccountService {
     private Connection connection;
@@ -23,7 +25,10 @@ public class AccountService {
    */
   public Optional<Account> authorize(String username, String pwd) {
       DaoFactory daoFactory = new JdbcDaoFactory(this.connection);
-      AccountDao accountDao = daoFactory.accountDAO();
+      //MapperRegistry mapperRegistry = new MapperRegistry(daoFactory);
+      AccountDao accountDao = (AccountDao) daoFactory.getDao(Account.class);
+      //Transaction transaction = new Transaction();
+      //transaction.commit(this.connection);
     return accountDao.findByUsername(username)
         .filter(acc -> Objects.equals(pwd, acc.password));
   }

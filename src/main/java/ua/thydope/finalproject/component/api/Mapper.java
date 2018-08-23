@@ -2,7 +2,7 @@ package ua.thydope.finalproject.component.api;
 
 import java.util.List;
 
-public abstract class Mapper<T extends Persistable> {
+public abstract class Mapper<T extends Distinguishable> implements Distinguishable<Mapper.Key>{
   protected IdentityMap<T> map = new IdentityMap<>();
   protected GenericDao<T> dao;
 
@@ -11,13 +11,16 @@ public abstract class Mapper<T extends Persistable> {
     this.dao = dao;
   }
 
-  public T findById(int id) {
-    return map.get(id).orElse(loadByIdAndRetain(id));
+  public T findById(T.Key key) {
+    return map.get(key).orElse(loadByIdAndRetain(key));
   }
 
   public List<T> findAll() {
     return dao.findAll();
   }
 
-  protected abstract T loadByIdAndRetain(int id);
+  protected abstract T loadByIdAndRetain(T.Key id);
+
+  public abstract class Key implements Distinguishable.Key<T> {}
+
 }

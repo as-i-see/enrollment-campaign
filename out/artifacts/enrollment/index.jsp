@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<sql:query var="rs" dataSource="jdbc/enrollmentDB">
+<sql:query var="rs" dataSource="jdbc/enrollment">
     SELECT * FROM subject
 </sql:query>
 <!DOCTYPE html>

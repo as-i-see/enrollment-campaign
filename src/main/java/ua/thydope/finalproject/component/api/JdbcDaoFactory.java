@@ -1,12 +1,9 @@
 package ua.thydope.finalproject.component.api;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 
-import ua.thydope.finalproject.component.account.AccountDao;
 import ua.thydope.finalproject.component.account.JdbcAccountDao;
 import ua.thydope.finalproject.component.subject.JdbcSubjectDao;
-import ua.thydope.finalproject.component.subject.SubjectDao;
 
 public final class JdbcDaoFactory implements DaoFactory {
 
@@ -17,12 +14,13 @@ public final class JdbcDaoFactory implements DaoFactory {
   }
 
   @Override
-  public SubjectDao subjectDAO() {
-    return new JdbcSubjectDao(this.connection);
-  }
-
-  @Override
-  public AccountDao accountDAO() {
-    return new JdbcAccountDao(this.connection);
+  public GenericDao<? extends Distinguishable> getDao(Class<? extends Distinguishable> klass) {
+    switch (klass.getName()) {
+      case "Account":
+        return new JdbcAccountDao(this.connection);
+      case "Subject":
+        return new JdbcSubjectDao(this.connection);
+    }
+    return null;
   }
 }

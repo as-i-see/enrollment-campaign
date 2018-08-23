@@ -1,32 +1,50 @@
 package ua.thydope.finalproject.component.api;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Transaction {
-    private List<Persistable> newObjects = new ArrayList<>();
-    private List<Persistable> dirtyObjects = new ArrayList<>();
-    private List<Persistable> deleteObjects = new ArrayList<>();
+    private List<Distinguishable> newObjects;
+    private List<Distinguishable> dirtyObjects;
+    private List<Distinguishable> deleteObjects;
 
-    public void registerNew(Persistable obj) {
+    public Transaction() {
+        this.newObjects = new ArrayList<>();
+        this.dirtyObjects = new ArrayList<>();
+        this.deleteObjects = new ArrayList<>();
+    }
+
+    public void registerNew(Distinguishable obj) {
         // TODO
         newObjects.add(obj);
     }
 
-    public void registerDirty(Persistable obj) {
+    public void registerDirty(Distinguishable obj) {
         // TODO
         dirtyObjects.add(obj);
     }
 
-    public void registerRemoved(Persistable obj) {
+    public void registerRemoved(Distinguishable obj) {
         // TODO
         deleteObjects.add(obj);
     }
 
-    public void commit() {
-        insertNew();
-        updateDirty();
-        deleteRemoved();
+    public void commit(Connection connection) {
+        try {
+            connection.setAutoCommit(false);
+            insertNew();
+            updateDirty();
+            deleteRemoved();
+            connection.commit();
+            connection.setAutoCommit(true);
+        }
+        catch (SQLException e) {
+            //connection.rollback();
+            throw new RuntimeException(e);
+        }
+
     }
 
     private void insertNew() {
