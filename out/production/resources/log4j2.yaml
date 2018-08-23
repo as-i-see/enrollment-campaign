@@ -15,18 +15,18 @@ Configuration:
         Pattern: "%d %p %C{1.} %m%n"
       Policies:
         OnStartupTriggeringPolicy:
-           minSize: 0
+          minSize: 0
         SizeBasedTriggeringPolicy:
-           size: "10MB"
+          size: "10MB"
         TimeBasedTriggeringPolicy:
-           interval: 60
+          interval: 60
   Loggers:
     logger:
-      - name: ua.thydope.finalproject.logging.file
-        level: debug
-        additivity: false
-        AppenderRef:
-          ref: RollingFile
+    - name: ua.thydope.finalproject.logging.file
+      level: debug
+      additivity: false
+      AppenderRef:
+        ref: RollingFile
     Root:
       level: error
       AppenderRef:

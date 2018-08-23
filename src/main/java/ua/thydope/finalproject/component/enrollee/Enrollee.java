@@ -1,10 +1,10 @@
 package ua.thydope.finalproject.component.enrollee;
 
-import java.time.LocalDate;
-import java.util.Map;
-
 import ua.thydope.finalproject.component.speciality.Speciality;
 import ua.thydope.finalproject.component.subject.Subject;
+
+import java.time.LocalDate;
+import java.util.Map;
 
 public final class Enrollee {
   private long id;
@@ -23,5 +23,4 @@ public final class Enrollee {
 
   private Speciality chosenSpeciality;
   private Map<Subject, Double> scores;
-
 }

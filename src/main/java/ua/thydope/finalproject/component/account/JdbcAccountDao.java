@@ -12,16 +12,17 @@ public class JdbcAccountDao implements AccountDao {
   private Connection connection;
 
   public JdbcAccountDao(Connection connection) {
-      this.connection = connection;
+    this.connection = connection;
   }
 
   @Override
   public void create(Account entity) {
-    try (PreparedStatement query = this.connection.prepareStatement("INSERT INTO account " +
-            "(username, password, role) VALUES (?, ?, 'USER')")) {
-        query.setString(1, entity.username);
-        query.setString(2, entity.password);
-        try (ResultSet resultSet = query.executeQuery()){}
+    try (PreparedStatement query =
+        this.connection.prepareStatement(
+            "INSERT INTO account " + "(username, password, role) VALUES (?, ?, 'USER')")) {
+      query.setString(1, entity.username);
+      query.setString(2, entity.password);
+      try (ResultSet resultSet = query.executeQuery()) {}
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -41,8 +42,8 @@ public class JdbcAccountDao implements AccountDao {
 
   @Override
   public Optional<Account> findByUsername(String username) {
-    try (PreparedStatement query = this.connection.prepareStatement(
-        "SELECT password, role FROM account WHERE username=?")) {
+    try (PreparedStatement query =
+        this.connection.prepareStatement("SELECT password, role FROM account WHERE username=?")) {
       query.setString(1, username);
       try (ResultSet account = query.executeQuery()) {
         if (account.next()) {
@@ -73,5 +74,4 @@ public class JdbcAccountDao implements AccountDao {
   public void close() throws Exception {
     // TODO Auto-generated method stub
   }
-
 }

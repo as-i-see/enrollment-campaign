@@ -2,7 +2,8 @@ package ua.thydope.finalproject.component.api;
 
 import java.util.List;
 
-public abstract class Mapper<T extends Distinguishable> implements Distinguishable<Mapper.Key>{
+public abstract class Mapper<T extends Distinguishable>
+    implements Distinguishable<Mapper.Key> {
   protected IdentityMap<T> map = new IdentityMap<>();
   protected GenericDao<T> dao;
 
@@ -22,5 +23,4 @@ public abstract class Mapper<T extends Distinguishable> implements Distinguishab
   protected abstract T loadByIdAndRetain(T.Key id);
 
   public abstract class Key implements Distinguishable.Key<T> {}
-
 }

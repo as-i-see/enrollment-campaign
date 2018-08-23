@@ -10,3 +10,6 @@ gradlew
 gradlew.bat
 .classpath
 logs
+out
+.idea
+lib

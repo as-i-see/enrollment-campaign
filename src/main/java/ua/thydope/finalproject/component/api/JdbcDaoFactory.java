@@ -1,9 +1,9 @@
 package ua.thydope.finalproject.component.api;
 
-import java.sql.Connection;
-
 import ua.thydope.finalproject.component.account.JdbcAccountDao;
 import ua.thydope.finalproject.component.subject.JdbcSubjectDao;
+
+import java.sql.Connection;
 
 public final class JdbcDaoFactory implements DaoFactory {
 

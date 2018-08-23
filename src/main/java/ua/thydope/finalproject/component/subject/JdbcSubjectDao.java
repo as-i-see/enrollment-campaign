@@ -31,8 +31,7 @@ public final class JdbcSubjectDao implements SubjectDao {
   @Override
   public List<Subject> findAll() {
     try (Statement query = this.connection.createStatement();
-        ResultSet subject = query
-            .executeQuery("SELECT name FROM subject")) {
+        ResultSet subject = query.executeQuery("SELECT name FROM subject")) {
       List<Subject> list = new ArrayList<>();
       while (subject.next()) {
         String name = subject.getString(1);
@@ -59,7 +58,6 @@ public final class JdbcSubjectDao implements SubjectDao {
 
   @Override
   public void close() throws Exception {
-      // TODO Auto-generated method stub
+    // TODO Auto-generated method stub
   }
-
 }

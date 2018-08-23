@@ -17,15 +17,16 @@ public final class Subject implements Distinguishable<Subject.Key> {
     this.name = name;
   }
 
-  public class Key<Subject> implements Distinguishable.Key<ua.thydope.finalproject.component.subject.Subject> {
+  @Override
+  public Key getKey() {
+    return null;
+  }
+
+  public class Key<Subject>
+      implements Distinguishable.Key<ua.thydope.finalproject.component.subject.Subject> {
     @Override
     public int compareTo(ua.thydope.finalproject.component.subject.Subject subject) {
       return 0;
     }
-  }
-
-  @Override
-  public Key getKey() {
-    return null;
   }
 }
