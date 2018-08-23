@@ -12,16 +12,15 @@ public class Account implements HttpSessionBindingListener, Serializable {
   private static final long serialVersionUID = 1L;
   private static final Logger LOGGER = LoggerFactory
       .getLogger("ua.thydope.finalproject.logging.file");
+
   String username;
   String password;
   String role;
-  int enrolleeId;
 
-  Account(String username, String password, String role, int enrolleeId) {
+  Account(String username, String password, String role) {
     this.username = username;
     this.password = password;
     this.role = role;
-    this.enrolleeId = enrolleeId;
   }
 
   public String getUsername() {
@@ -48,14 +47,6 @@ public class Account implements HttpSessionBindingListener, Serializable {
     this.role = role;
   }
 
-  public int getEnrolleeId() {
-    return enrolleeId;
-  }
-
-  public void setEnrolleeId(int enrolleeId) {
-    this.enrolleeId = enrolleeId;
-  }
-
   @Override
   public void valueBound(HttpSessionBindingEvent event) {
     LOGGER.debug("Customer [{}] logged in as {}", this.username, this.role);
@@ -69,7 +60,7 @@ public class Account implements HttpSessionBindingListener, Serializable {
   @Override
   public String toString() {
     return "Account [username=" + username + ", password=" + password
-        + ", role=" + role + ", enrolleeId=" + enrolleeId + "]";
+        + ", role=" + role + "]";
   }
 
 }

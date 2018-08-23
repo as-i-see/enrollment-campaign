@@ -1,14 +1,18 @@
 package ua.thydope.finalproject.component.account;
 
+import java.sql.Connection;
 import java.util.Objects;
 import java.util.Optional;
 
-import ua.thydope.finalproject.component.api.DAOFactory;
+import ua.thydope.finalproject.component.api.DaoFactory;
+import ua.thydope.finalproject.component.api.JdbcDaoFactory;
 
 public class AccountService {
+    private Connection connection;
 
-  /** The accounts dao. */
-  private AccountDAO dao = DAOFactory.getInstance().accountDAO();
+    public AccountService(Connection connection) {
+        this.connection = connection;
+    }
 
   /**
    * Returns optional role name of given credentials
@@ -18,7 +22,9 @@ public class AccountService {
    * @return optional role name
    */
   public Optional<Account> authorize(String username, String pwd) {
-    return dao.findByUsername(username)
+      DaoFactory daoFactory = new JdbcDaoFactory(this.connection);
+      AccountDao accountDao = daoFactory.accountDAO();
+    return accountDao.findByUsername(username)
         .filter(acc -> Objects.equals(pwd, acc.password));
   }
 }

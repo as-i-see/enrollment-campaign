@@ -2,23 +2,11 @@ package ua.thydope.finalproject.component.subject;
 
 import ua.thydope.finalproject.component.api.Persistable;
 
-public final class Subject implements Persistable {
-  private int id;
+public final class Subject{
   private String name;
 
-  Subject(int id, String name) {
-    this.id = id;
+  Subject(String name) {
     this.name = name;
-  }
-
-  @Override
-  public int getId() {
-    return id;
-  }
-
-  @Override
-  public void setId(int id) {
-    this.id = id;
   }
 
   public String getName() {

@@ -10,9 +10,9 @@ public class CommandFactory {
   public static Command getCommand(String location) {
     switch (location) {
     case "subjects":
-      return new SubjectsListCommand(new SubjectService());
+      return new SubjectsListCommand();
     case "login":
-      return new LoginCommand(new AccountService());
+      return new LoginCommand();
     default:
       return new Command() {
         @Override

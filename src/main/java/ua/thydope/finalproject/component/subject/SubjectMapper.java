@@ -1,10 +1,8 @@
 package ua.thydope.finalproject.component.subject;
 
-import ua.thydope.finalproject.component.api.GenericDAO;
-import ua.thydope.finalproject.component.api.Mapper;
-
-public class SubjectMapper extends Mapper<Subject> {
-  public SubjectMapper(GenericDAO<Subject> dao) {
+// extends Mapper<Subject>
+public class SubjectMapper /*extends Mapper<Subject>*/ {
+  /*public SubjectMapper(GenericDao<Subject> dao) {
     super(dao);
     // TODO Auto-generated constructor stub
   }
@@ -14,5 +12,5 @@ public class SubjectMapper extends Mapper<Subject> {
     Subject entity = this.dao.findById(id);
     this.map.add(entity);
     return entity;
-  }
+  }*/
 }

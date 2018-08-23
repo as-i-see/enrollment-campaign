@@ -4,10 +4,10 @@ import java.util.List;
 
 public abstract class Mapper<T extends Persistable> {
   protected IdentityMap<T> map = new IdentityMap<>();
-  protected GenericDAO<T> dao;
+  protected GenericDao<T> dao;
 
   // TODO get dao from factory by T
-  public Mapper(GenericDAO<T> dao) {
+  public Mapper(GenericDao<T> dao) {
     this.dao = dao;
   }
 
