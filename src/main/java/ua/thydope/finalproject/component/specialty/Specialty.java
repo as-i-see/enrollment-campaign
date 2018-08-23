@@ -1,4 +1,4 @@
-package ua.thydope.finalproject.component.speciality;
+package ua.thydope.finalproject.component.specialty;
 
 import ua.thydope.finalproject.component.api.Distinguishable;
 import ua.thydope.finalproject.component.criterion.Criterion;
@@ -6,8 +6,8 @@ import ua.thydope.finalproject.component.enrollee.Enrollee;
 
 import java.util.Set;
 
-public final class Speciality implements Distinguishable<Speciality.Key> {
-  private Key<Speciality> key;
+public final class Specialty implements Distinguishable<Specialty.Key> {
+  private Key<Specialty> key;
   private String name;
   private int minEntryScore;
   private int licensedVolume;
@@ -19,10 +19,10 @@ public final class Speciality implements Distinguishable<Speciality.Key> {
     return this.key;
   }
 
-  public class Key<Speciality>
-      implements Distinguishable.Key<ua.thydope.finalproject.component.speciality.Speciality> {
+  public class Key<Specialsty>
+      implements Distinguishable.Key<Specialty> {
     @Override
-    public int compareTo(ua.thydope.finalproject.component.speciality.Speciality speciality) {
+    public int compareTo(Specialty specialty) {
       return 0;
     }
   }

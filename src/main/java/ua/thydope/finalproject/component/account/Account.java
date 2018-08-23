@@ -16,11 +16,13 @@ public class Account implements HttpSessionBindingListener, Serializable,
   private static final Logger LOGGER = LoggerFactory
       .getLogger("ua.thydope.finalproject.logging.file");
 
-  String username;
-  String password;
-  String role;
+  private Integer id;
+  private String username;
+  private String password;
+  // TODO change type to ENUM
+  private String role;
 
-  Account(String username, String password, String role) {
+  Account(Integer id, String username, String password, String role) {
     this.username = username;
     this.password = password;
     this.role = role;

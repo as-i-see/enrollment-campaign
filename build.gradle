@@ -24,6 +24,8 @@ dependencies {
     testRuntimeOnly(
             'org.junit.jupiter:junit-jupiter-engine:5.2.0'
     )
+
+    compile fileTree(dir: "/home/thydope/Projects/Java/FinalProject/src/main/webapp/WEB-INF/lib", includes: ['*.jar'])
     
 }
 
