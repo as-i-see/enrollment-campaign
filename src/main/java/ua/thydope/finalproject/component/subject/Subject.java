@@ -1,11 +1,14 @@
 package ua.thydope.finalproject.component.subject;
 
-import ua.thydope.finalproject.component.api.Distinguishable;
+import java.util.Objects;
 
-public final class Subject implements Distinguishable<Subject.Key> {
+import ua.thydope.finalproject.component.api.Entity;
+
+public class Subject extends Entity {
   private String name;
 
-  Subject(String name) {
+  public Subject(String name) {
+    super(0);
     this.name = name;
   }
 
@@ -17,16 +20,4 @@ public final class Subject implements Distinguishable<Subject.Key> {
     this.name = name;
   }
 
-  @Override
-  public Key getKey() {
-    return null;
-  }
-
-  public class Key<Subject>
-      implements Distinguishable.Key<ua.thydope.finalproject.component.subject.Subject> {
-    @Override
-    public int compareTo(ua.thydope.finalproject.component.subject.Subject subject) {
-      return 0;
-    }
-  }
 }

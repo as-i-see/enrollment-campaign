@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Transaction {
-  private List<Distinguishable> newObjects;
-  private List<Distinguishable> dirtyObjects;
-  private List<Distinguishable> deleteObjects;
+  private List<Entity> newObjects;
+  private List<Entity> dirtyObjects;
+  private List<Entity> deleteObjects;
 
   public Transaction() {
     this.newObjects = new ArrayList<>();
@@ -16,17 +16,17 @@ public class Transaction {
     this.deleteObjects = new ArrayList<>();
   }
 
-  public void registerNew(Distinguishable obj) {
+  public void registerNew(Entity obj) {
     // TODO
     newObjects.add(obj);
   }
 
-  public void registerDirty(Distinguishable obj) {
+  public void registerDirty(Entity obj) {
     // TODO
     dirtyObjects.add(obj);
   }
 
-  public void registerRemoved(Distinguishable obj) {
+  public void registerRemoved(Entity obj) {
     // TODO
     deleteObjects.add(obj);
   }

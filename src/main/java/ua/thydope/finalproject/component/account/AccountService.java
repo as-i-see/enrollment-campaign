@@ -28,6 +28,6 @@ public class AccountService {
     // Transaction transaction = new Transaction();
     // transaction.commit(this.connection);
     return accountDao.findByUsername(username)
-        .filter(acc -> Objects.equals(pwd, acc.password));
+        .filter(acc -> Objects.equals(pwd, acc.getPassword()));
   }
 }

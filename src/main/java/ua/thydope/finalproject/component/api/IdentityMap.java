@@ -4,16 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-// TODO maybe generic key
-public final class IdentityMap<T extends Distinguishable> {
-  private Map<T.Key, T> map = new HashMap<>();
+public final class IdentityMap<T extends Entity> {
+  private Map<Entity.Key, T> map = new HashMap<>();
 
   public void add(T arg) {
     // TODO simple put maybe
-    map.putIfAbsent(arg.getKey(), arg);
+    map.putIfAbsent(arg.new Key(), arg);
   }
 
-  public Optional<T> get(T.Key key) {
+  public Optional<T> get(Entity.Key key) {
     return Optional.ofNullable(map.get(key));
   }
 }

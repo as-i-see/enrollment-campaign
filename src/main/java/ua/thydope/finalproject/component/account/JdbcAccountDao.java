@@ -20,8 +20,8 @@ public class JdbcAccountDao implements AccountDao {
     try (PreparedStatement query =
         this.connection.prepareStatement(
             "INSERT INTO account " + "(username, password, role) VALUES (?, ?, 'USER')")) {
-      query.setString(1, entity.username);
-      query.setString(2, entity.password);
+      query.setString(1, entity.getUsername());
+      query.setString(2, entity.getPassword());
       try (ResultSet resultSet = query.executeQuery()) {}
     } catch (SQLException e) {
       e.printStackTrace();
@@ -49,7 +49,8 @@ public class JdbcAccountDao implements AccountDao {
         if (account.next()) {
           String password = account.getString("password");
           String role = account.getString("role");
-          return Optional.of(new Account(username, password, role));
+          return Optional.of(new Account(0,
+              username, password, role));
         }
       }
     } catch (SQLException e) {

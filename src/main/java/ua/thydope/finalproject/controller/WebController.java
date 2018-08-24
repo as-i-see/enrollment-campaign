@@ -31,6 +31,7 @@ public class WebController extends HttpServlet {
     Command command = CommandFactory.getCommand(path);
     String page = command.perform(request);
     request.getRequestDispatcher(page).forward(request, response);
+
   }
 
   /**

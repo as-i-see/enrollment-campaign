@@ -8,9 +8,8 @@ public class MapperRegistry {
     this.daoFactory = daoFactory;
   }
 
-  public Mapper<? extends Distinguishable> getMapper(
-      Class<? extends Distinguishable> klass) {
-    // return this.daoFactory.getDao(klass);
+  public Mapper<? extends Entity> getMapper(Class<? extends Entity> klass) {
+    // return this.daoFactory.getDsao(klass);
     return null;
   }
 }

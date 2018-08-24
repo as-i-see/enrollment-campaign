@@ -1,28 +1,24 @@
 package ua.thydope.finalproject.component.account;
 
-import java.io.Serializable;
-
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ua.thydope.finalproject.component.api.Distinguishable;
+import ua.thydope.finalproject.component.api.Entity;
 
-public class Account implements HttpSessionBindingListener, Serializable,
-    Distinguishable<Account.Key> {
-  private static final long serialVersionUID = 1L;
+public class Account extends Entity implements HttpSessionBindingListener {
   private static final Logger LOGGER = LoggerFactory
       .getLogger("ua.thydope.finalproject.logging.file");
 
-  private Integer id;
   private String username;
   private String password;
   // TODO change type to ENUM
   private String role;
 
-  Account(Integer id, String username, String password, String role) {
+  public Account(Integer id, String username, String password, String role) {
+    super(id);
     this.username = username;
     this.password = password;
     this.role = role;
@@ -66,17 +62,5 @@ public class Account implements HttpSessionBindingListener, Serializable,
   public String toString() {
     return "Account [username=" + username + ", password=" + password
         + ", role=" + role + "]";
-  }
-
-  @Override
-  public Account.Key getKey() {
-    return null;
-  }
-
-  public class Key implements Distinguishable.Key<Account> {
-    @Override
-    public int compareTo(Account account) {
-      return 0;
-    }
   }
 }
