@@ -17,6 +17,13 @@ public class Account extends Entity implements HttpSessionBindingListener {
   // TODO change type to ENUM
   private String role;
 
+  public Account(String username, String password) {
+    super(null);
+    this.username = username;
+    this.password = password;
+    this.role = "GUEST";
+  }
+
   public Account(Integer id, String username, String password, String role) {
     super(id);
     this.username = username;

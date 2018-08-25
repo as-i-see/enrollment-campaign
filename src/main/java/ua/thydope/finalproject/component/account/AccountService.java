@@ -3,7 +3,6 @@ package ua.thydope.finalproject.component.account;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Objects;
-import java.util.Optional;
 
 import javax.sql.DataSource;
 
@@ -24,16 +23,22 @@ public class AccountService {
    * @param the pwd
    * @return optional role name
    */
-  public Optional<Account> authorize(String username, String pwd) {
+  public void authorize(Account account) {
     try (Connection connection = dataSource.getConnection()) {
       DBDaoFactory.use(connection);
       MapperRegistry.use(DBDaoFactory.getInstance());
       AccountDBDao accountDBDao = (AccountDBDao) DBDaoFactory
           .daoFor(Account.class);
-      return accountDBDao.findByUsername(username)
-          .filter(acc -> Objects.equals(pwd, acc.getPassword()));
+      Account persistedAccount = accountDBDao
+          .findByUsername(account.getUsername())
+          .filter(
+              acc -> Objects.equals(account.getPassword(), acc.getPassword()))
+          .orElseThrow(RuntimeException::new);
+      account.setRole(persistedAccount.getRole());
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
   }
+
+  // public
 }
