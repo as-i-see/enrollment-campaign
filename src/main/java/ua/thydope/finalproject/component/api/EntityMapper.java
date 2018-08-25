@@ -1,20 +1,22 @@
 package ua.thydope.finalproject.component.api;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
-public class Mapper<T extends Entity> extends Entity {
-  protected IdentityMap<T> map = new IdentityMap<>();
-  protected GenericDao<T> dao;
+public class EntityMapper<T extends Entity> extends Entity {
+  protected Dao<T> dao;
+  private Map<T.Key, T> map = new HashMap<>();
 
-  public Mapper(GenericDao<T> dao) {
+  EntityMapper(Dao<T> dao) {
     super(0);
     this.dao = dao;
   }
 
-  public T findByKey(T.Key key) {
-    return map.get(key).orElse(/* loadByIdAndRetain(key) */null);
+  public T get(T.Key key) {
+    return map.get(key);
   }
 
   public List<T> findAll() {
@@ -31,7 +33,7 @@ public class Mapper<T extends Entity> extends Entity {
 
     @Override
     public int hashCode() {
-      return enclosingMapperGenericType.getTypeName().hashCode();
+      return Objects.hashCode(enclosingMapperGenericType);
     }
 
     @Override
@@ -42,7 +44,7 @@ public class Mapper<T extends Entity> extends Entity {
         return false;
       if (getClass() != o.getClass())
         return false;
-      Mapper.Key otherKey = (Mapper.Key) o;
+      EntityMapper.Key otherKey = (EntityMapper.Key) o;
       return Objects.equals(this.enclosingMapperGenericType.getTypeName(),
           otherKey.enclosingMapperGenericType.getTypeName());
     }

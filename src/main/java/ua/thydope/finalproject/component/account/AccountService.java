@@ -1,17 +1,20 @@
 package ua.thydope.finalproject.component.account;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Optional;
 
-import ua.thydope.finalproject.component.api.DaoFactory;
-import ua.thydope.finalproject.component.api.JdbcDaoFactory;
+import javax.sql.DataSource;
+
+import ua.thydope.finalproject.component.api.DBDaoFactory;
+import ua.thydope.finalproject.component.api.MapperRegistry;
 
 public class AccountService {
-  private Connection connection;
+  private DataSource dataSource;
 
-  public AccountService(Connection connection) {
-    this.connection = connection;
+  public AccountService(DataSource dataSource) {
+    this.dataSource = dataSource;
   }
 
   /**
@@ -22,12 +25,15 @@ public class AccountService {
    * @return optional role name
    */
   public Optional<Account> authorize(String username, String pwd) {
-    DaoFactory daoFactory = new JdbcDaoFactory(this.connection);
-    // MapperRegistry mapperRegistry = new MapperRegistry(daoFactory);
-    AccountDao accountDao = (AccountDao) daoFactory.getDao(Account.class);
-    // Transaction transaction = new Transaction();
-    // transaction.commit(this.connection);
-    return accountDao.findByUsername(username)
-        .filter(acc -> Objects.equals(pwd, acc.getPassword()));
+    try (Connection connection = dataSource.getConnection()) {
+      DBDaoFactory.use(connection);
+      MapperRegistry.use(DBDaoFactory.getInstance());
+      AccountDBDao accountDBDao = (AccountDBDao) DBDaoFactory
+          .daoFor(Account.class);
+      return accountDBDao.findByUsername(username)
+          .filter(acc -> Objects.equals(pwd, acc.getPassword()));
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
   }
 }

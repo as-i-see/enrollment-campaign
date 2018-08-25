@@ -1,8 +1,8 @@
 package ua.thydope.finalproject.component.subject;
 
-// extends Mapper<Subject>
-public class SubjectMapper /*extends Mapper<Subject>*/ {
-  /*public SubjectMapper(GenericDao<Subject> dao) {
+// extends EntityMapper<Subject>
+public class SubjectMapper /*extends EntityMapper<Subject>*/ {
+  /*public SubjectMapper(Dao<Subject> dao) {
     super(dao);
     // TODO Auto-generated constructor stub
   }

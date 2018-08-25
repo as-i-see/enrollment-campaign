@@ -1,15 +1,40 @@
 package ua.thydope.finalproject.component.api;
 
-public class MapperRegistry {
-  private DaoFactory daoFactory;
-  private IdentityMap<Mapper> registry;
+import java.util.HashMap;
+import java.util.Map;
 
-  public MapperRegistry(DaoFactory daoFactory) {
+public class MapperRegistry implements AutoCloseable {
+  private static ThreadLocal<MapperRegistry> threadLocal = new ThreadLocal<>();
+  private DaoFactory daoFactory;
+  private Map<Class<? extends Entity>, EntityMapper<? extends Entity>> map;
+
+  private MapperRegistry(DaoFactory daoFactory) {
+    this.map = new HashMap<>();
     this.daoFactory = daoFactory;
   }
 
-  public Mapper<? extends Entity> getMapper(Class<? extends Entity> klass) {
-    // return this.daoFactory.getDsao(klass);
-    return null;
+  public static MapperRegistry getInstance() {
+    return threadLocal.get();
+  }
+
+  public static void use(DaoFactory daoFactory) {
+    threadLocal.set(new MapperRegistry(daoFactory));
+  }
+
+  public static <T extends Entity> EntityMapper<T> mapperFor(Class<T> klass) {
+    EntityMapper<? extends Entity> presentEntityMapper = getInstance().map.get(klass);
+    if (presentEntityMapper != null) {
+      return (EntityMapper<T>) presentEntityMapper;
+    } else {
+      Dao<T> dao = DBDaoFactory.daoFor(klass);
+      EntityMapper<T> entityMapper = new EntityMapper<>(dao);
+      getInstance().map.put(klass, entityMapper);
+      return entityMapper;
+    }
+  }
+
+  @Override
+  public void close() {
+    threadLocal.set(null);
   }
 }

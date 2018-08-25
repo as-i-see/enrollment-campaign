@@ -2,7 +2,7 @@ package ua.thydope.finalproject.component.api;
 
 import java.util.List;
 
-public interface GenericDao<T> extends AutoCloseable {
+public interface Dao<T extends Entity> {
   void create(T entity);
 
   T findById(int id);

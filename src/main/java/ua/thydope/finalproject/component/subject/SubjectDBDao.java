@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public final class JdbcSubjectDao implements SubjectDao {
+import ua.thydope.finalproject.component.api.Dao;
+
+public final class SubjectDBDao implements Dao<Subject> {
 
   private Connection connection;
 
-  public JdbcSubjectDao(Connection connection) {
+  public SubjectDBDao(Connection connection) {
     this.connection = connection;
   }
 
@@ -54,10 +56,5 @@ public final class JdbcSubjectDao implements SubjectDao {
   public void delete(int id) {
     // TODO Auto-generated method stub
 
-  }
-
-  @Override
-  public void close() throws Exception {
-    // TODO Auto-generated method stub
   }
 }

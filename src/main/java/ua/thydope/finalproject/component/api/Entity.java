@@ -9,23 +9,24 @@ public class Entity {
     this.id = id;
   }
 
-  public class Key {
+  class Key {
+    private Integer id = Entity.this.id;
+    private Class<? extends Entity> enclosingClass = Entity.this.getClass();
 
     @Override
     public int hashCode() {
-      return Entity.this.id;
+      return Objects.hash(id, enclosingClass);
     }
 
     @Override
     public boolean equals(Object o) {
       if (this == o)
         return true;
-      if (o == null)
-        return false;
-      if (getClass() != o.getClass())
+      if (o == null || getClass() != o.getClass())
         return false;
       Entity.Key otherKey = (Entity.Key) o;
-      return Objects.equals(this.hashCode(), otherKey.hashCode());
+      return Objects.equals(enclosingClass, otherKey.enclosingClass)
+          && Objects.equals(id, otherKey.id);
     }
   }
 }

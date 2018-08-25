@@ -5,34 +5,32 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Transaction {
+public class Transaction implements AutoCloseable {
+  private static ThreadLocal<Transaction> threadLocalTransaction = new ThreadLocal<>();
+
+  private Connection connection;
   private List<Entity> newObjects;
   private List<Entity> dirtyObjects;
   private List<Entity> deleteObjects;
 
-  public Transaction() {
+  private Transaction(Connection connection) {
+    this.connection = connection;
     this.newObjects = new ArrayList<>();
     this.dirtyObjects = new ArrayList<>();
     this.deleteObjects = new ArrayList<>();
   }
 
-  public void registerNew(Entity obj) {
-    // TODO
-    newObjects.add(obj);
+  public static Transaction getInstance() {
+    return threadLocalTransaction.get();
   }
 
-  public void registerDirty(Entity obj) {
-    // TODO
-    dirtyObjects.add(obj);
+  public static void start(Connection connection) {
+    threadLocalTransaction.set(new Transaction(connection));
   }
 
-  public void registerRemoved(Entity obj) {
-    // TODO
-    deleteObjects.add(obj);
-  }
-
-  public void commit(Connection connection) {
+  public static void commit() {
     try {
+      Connection connection = getInstance().connection;
       connection.setAutoCommit(false);
       insertNew();
       updateDirty();
@@ -45,27 +43,44 @@ public class Transaction {
     }
   }
 
-  private void insertNew() {
-    newObjects.forEach(
-        (obj) -> {
-          // TODO
-          // MapperRegistry.getMapper(obj.getClass()).insert(obj);
-        });
+  public static void registerNew(Entity obj) {
+    // TODO
+    getInstance().newObjects.add(obj);
   }
 
-  private void updateDirty() {
-    dirtyObjects.forEach(
-        (obj) -> {
-          // TODO
-          // MapperRegistry.getMapper(obj.getClass()).update(obj);
-        });
+  public static void registerDirty(Entity obj) {
+    // TODO
+    getInstance().dirtyObjects.add(obj);
   }
 
-  private void deleteRemoved() {
-    deleteObjects.forEach(
-        (obj) -> {
-          // TODO
-          // MapperRegistry.getMapper(obj.getClass()).delete(obj);
-        });
+  public static void registerRemoved(Entity obj) {
+    // TODO
+    getInstance().deleteObjects.add(obj);
+  }
+
+  private static void insertNew() {
+    getInstance().newObjects.forEach((obj) -> {
+      // TODO
+      // MapperRegistry.getMapper(obj.getClass()).insert(obj);
+    });
+  }
+
+  private static void updateDirty() {
+    getInstance().dirtyObjects.forEach((obj) -> {
+      // TODO
+      // MapperRegistry.getMapper(obj.getClass()).update(obj);
+    });
+  }
+
+  private static void deleteRemoved() {
+    getInstance().deleteObjects.forEach((obj) -> {
+      // TODO
+      // MapperRegistry.getMapper(obj.getClass()).delete(obj);
+    });
+  }
+
+  @Override
+  public void close() {
+    threadLocalTransaction.set(null);
   }
 }
