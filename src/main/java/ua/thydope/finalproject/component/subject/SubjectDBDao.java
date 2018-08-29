@@ -10,7 +10,7 @@ import java.util.List;
 
 import ua.thydope.finalproject.component.api.Dao;
 
-public final class SubjectDBDao implements Dao<Subject> {
+public abstract class SubjectDBDao implements Dao<Subject> {
 
   private Connection connection;
 
@@ -22,12 +22,6 @@ public final class SubjectDBDao implements Dao<Subject> {
   public void create(Subject entity) {
     // TODO Auto-generated method stub
 
-  }
-
-  @Override
-  public Subject findById(int id) {
-    // TODO Auto-generated method stub
-    return null;
   }
 
   @Override

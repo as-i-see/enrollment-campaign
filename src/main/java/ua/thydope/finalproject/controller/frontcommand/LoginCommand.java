@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import ua.thydope.finalproject.component.account.Account;
 import ua.thydope.finalproject.component.account.AccountService;
+import ua.thydope.finalproject.component.account.AccountType;
 import ua.thydope.finalproject.controller.converter.ConversionService;
 
 class LoginCommand implements Command {
@@ -26,7 +27,7 @@ class LoginCommand implements Command {
     DataSource pool = (DataSource) req.getServletContext().getAttribute("pool");
     AccountService accountService = new AccountService(pool);
     accountService.authorize(targetAccount);
-    if (!targetAccount.getRole().equals("GUEST")) {
+    if (targetAccount.getRole() != AccountType.GUEST) {
       // LOGGER.debug("Logged as: {}", account.get().toString());
       req.getSession().setAttribute("account", targetAccount);
       Set<String> activeAccounts = (ConcurrentSkipListSet<String>) req

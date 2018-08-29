@@ -1,6 +1,9 @@
 package ua.thydope.finalproject.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,15 +26,44 @@ public class WebController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    response.setContentType("text/html");
+
     response.setCharacterEncoding("UTF-8");
     request.setCharacterEncoding("UTF-8");
     String path = request.getRequestURI();
-    path = path.replaceAll(".*/", "");
-    Command command = CommandFactory.getCommand(path);
-    String page = command.perform(request);
-    request.getRequestDispatcher(page).forward(request, response);
+    path = path.replaceAll(".*enrollment/", "");
+    if (path.matches(".*\\..*")) {
+      FileInputStream fileInputStream = null;
+      OutputStream outputStream = null;
+      try {
+        String filename = request.getServletContext().getRealPath("/") + path;
+        File file = new File(filename);
+        String mimetype = request.getServletContext().getMimeType(filename);
+        if (mimetype == null) {
+          mimetype = "application/octet-stream";
+        }
+        response.setContentType(mimetype);
+        fileInputStream = new FileInputStream(file);
+        outputStream = response.getOutputStream();
+        int bytes;
+        while ((bytes = fileInputStream.read()) != -1) {
+          outputStream.write(bytes);
+        }
+      }
+      catch (Exception e) {
 
+      }
+      finally {
+        fileInputStream.close();
+        outputStream.close();
+      }
+
+
+    }
+    else {
+      Command command = CommandFactory.findGetCommand(path);
+      path = command.perform(request);
+      request.getRequestDispatcher(path).forward(request, response);
+    }
   }
 
   /**

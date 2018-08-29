@@ -9,13 +9,10 @@ import ua.thydope.finalproject.component.specialty.Specialty;
 public class Enrollee extends Entity {
   private String firstName;
   private String lastName;
-  private String address;
-  private String country;
-  private String postcode;
   private String email;
-  private String phoneNumber;
+  private String phone;
 
-  private Specialty chosenSpecialty;
+  private Specialty specialtyChosen;
   private List<Assessment> assessments;
 
   public Enrollee(Integer id) {

@@ -24,12 +24,8 @@ public class EntityMapper<T extends Entity> extends Entity {
   }
 
   public class Key extends Entity.Key {
-    Type enclosingMapperGenericType;
-
-    Key() {
-      enclosingMapperGenericType = getClass().getEnclosingClass()
-          .getTypeParameters()[0].getGenericDeclaration();
-    }
+    Type enclosingMapperGenericType = getClass().getEnclosingClass()
+        .getTypeParameters()[0].getGenericDeclaration();
 
     @Override
     public int hashCode() {

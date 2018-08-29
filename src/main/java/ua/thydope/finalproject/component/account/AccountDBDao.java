@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 import ua.thydope.finalproject.component.api.DBDao;
+import ua.thydope.finalproject.controller.converter.ResultSetConverter;
 
 public class AccountDBDao extends DBDao<Account> {
 
@@ -16,46 +17,86 @@ public class AccountDBDao extends DBDao<Account> {
   }
 
   @Override
-  public void create(Account entity) {
-    try (PreparedStatement query = this.connection
-        .prepareStatement("INSERT INTO account "
-            + "(username, password, role) VALUES (?, ?, 'USER')")) {
-      query.setString(1, entity.getUsername());
-      query.setString(2, entity.getPassword());
-      try (ResultSet resultSet = query.executeQuery()) {}
+  protected String getCreateQuery() {
+    return "INSERT INTO account "
+        + "(username, password, role_id) VALUES (?, ?, ?)";
+  }
+
+  @Override
+  protected String getFindByKeyQuery() {
+    return "SELECT id, username, password, role_id FROM account WHERE id=?";
+  }
+
+  @Override
+  protected void executeCreate(PreparedStatement ps, Account entity) {
+    try {
+      ps.setString(1, entity.getUsername());
+      ps.setString(2, entity.getPassword());
+      ps.setInt(3, AccountType.USER.getIndex());
+      ps.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
     }
   }
 
   @Override
-  public Account findById(int id) {
-    // TODO Auto-generated method stub
-    return null;
+  protected ResultSetConverter<Account> converter() {
+    return (ResultSet rs) -> {
+      Account account = null;
+      try {
+        rs.next();
+        Integer id = rs.getInt(1);
+        String username = rs.getString(2);
+        String pwd = rs.getString(3);
+        String role = "ADMIN";
+        account = new Account(id, username, pwd, role);
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+      return account;
+    };
+  }
+
+  @Override
+  protected ResultSet executeFind(PreparedStatement ps, Account.Key key) {
+    ResultSet rs = null;
+    try {
+      ps.setInt(1, key.id);
+      rs = ps.executeQuery();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return rs;
+  }
+
+  public Optional<Account> findByUsername(String username) {
+    PreparedStatement ps = getPreparedStatement(getFindByUsernameQuery());
+    ResultSet rs = executeFindByUsername(ps, username);
+    Account account = converter().apply(rs);
+    DBDao.closeStatement(ps);
+    return Optional.ofNullable(account);
+  }
+
+  private String getFindByUsernameQuery() {
+    return "SELECT id, username, "
+        + "password, role_id FROM account WHERE username=?";
+  }
+
+  private ResultSet executeFindByUsername(PreparedStatement ps, String key) {
+    ResultSet rs = null;
+    try {
+      ps.setString(1, key);
+      rs = ps.executeQuery();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return rs;
   }
 
   @Override
   public List<Account> findAll() {
     // TODO Auto-generated method stub
     return null;
-  }
-
-
-  public Optional<Account> findByUsername(String username) {
-    try (PreparedStatement query = connection.prepareStatement(
-        "SELECT password, role FROM account WHERE username=?")) {
-      query.setString(1, username);
-      try (ResultSet account = query.executeQuery()) {
-        if (account.next()) {
-          String password = account.getString("password");
-          String role = account.getString("role");
-          return Optional.of(new Account(0, username, password, role));
-        }
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return Optional.empty();
   }
 
   @Override

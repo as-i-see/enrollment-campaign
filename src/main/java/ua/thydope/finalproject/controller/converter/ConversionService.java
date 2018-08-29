@@ -7,7 +7,7 @@ import ua.thydope.finalproject.component.account.Account;
 import ua.thydope.finalproject.component.account.AccountConverter;
 
 public class ConversionService {
-  private Map<Class<?>, RequestParamsConverter<?>> converterMap;
+  private Map<Class<?>, ParamMapConverter<?>> converterMap;
 
   private ConversionService() {
     converterMap = new HashMap<>();

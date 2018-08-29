@@ -6,29 +6,42 @@ import javax.servlet.http.HttpSessionBindingListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import lombok.Data;
 import ua.thydope.finalproject.component.api.Entity;
+import ua.thydope.finalproject.component.enrollee.Enrollee;
 
+@Data
 public class Account extends Entity implements HttpSessionBindingListener {
   private static final Logger LOGGER = LoggerFactory
       .getLogger("ua.thydope.finalproject.logging.file");
 
   private String username;
   private String password;
-  // TODO change type to ENUM
-  private String role;
+  private AccountType role;
+  private Enrollee enrollee;
 
   public Account(String username, String password) {
     super(null);
     this.username = username;
     this.password = password;
-    this.role = "GUEST";
+    this.role = AccountType.GUEST;
   }
 
   public Account(Integer id, String username, String password, String role) {
     super(id);
     this.username = username;
     this.password = password;
-    this.role = role;
+    this.role = AccountType.valueOf(role);
+  }
+
+  @Override
+  public void valueBound(HttpSessionBindingEvent event) {
+    LOGGER.debug("Customer [{}] logged in as {}", this.username, this.role);
+  }
+
+  @Override
+  public void valueUnbound(HttpSessionBindingEvent event) {
+    LOGGER.debug("Customer [{}] logged out", this.username);
   }
 
   public String getUsername() {
@@ -47,27 +60,19 @@ public class Account extends Entity implements HttpSessionBindingListener {
     this.password = password;
   }
 
-  public String getRole() {
+  public AccountType getRole() {
     return role;
   }
 
-  public void setRole(String role) {
+  public void setRole(AccountType role) {
     this.role = role;
   }
 
-  @Override
-  public void valueBound(HttpSessionBindingEvent event) {
-    LOGGER.debug("Customer [{}] logged in as {}", this.username, this.role);
+  public Enrollee getEnrollee() {
+    return enrollee;
   }
 
-  @Override
-  public void valueUnbound(HttpSessionBindingEvent event) {
-    LOGGER.debug("Customer [{}] logged out", this.username);
-  }
-
-  @Override
-  public String toString() {
-    return "Account [username=" + username + ", password=" + password
-        + ", role=" + role + "]";
+  public void setEnrollee(Enrollee enrollee) {
+    this.enrollee = enrollee;
   }
 }

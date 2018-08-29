@@ -9,8 +9,8 @@ public class Entity {
     this.id = id;
   }
 
-  class Key {
-    private Integer id = Entity.this.id;
+  public class Key {
+    public final Integer id = Entity.this.id;
     private Class<? extends Entity> enclosingClass = Entity.this.getClass();
 
     @Override

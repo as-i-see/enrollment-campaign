@@ -1,4 +1,9 @@
-apply plugin: 'java'
+//apply plugin: 'java'
+
+plugins {
+    id 'io.franzbecker.gradle-lombok' version '1.14'
+    id 'java'
+}
 
 repositories {
     jcenter()

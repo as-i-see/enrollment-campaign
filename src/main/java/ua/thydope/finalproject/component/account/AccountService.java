@@ -40,5 +40,21 @@ public class AccountService {
     }
   }
 
+  public void register(Account account) {
+    try (Connection connection = dataSource.getConnection()) {
+      DBDaoFactory.use(connection);
+      MapperRegistry.use(DBDaoFactory.getInstance());
+      AccountDBDao accountDBDao = (AccountDBDao) DBDaoFactory
+          .daoFor(Account.class);
+      accountDBDao.findByUsername(account.getUsername())
+          .ifPresent((Account acc) -> {
+            throw new RuntimeException();
+          });
+      accountDBDao.create(account);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
   // public
 }

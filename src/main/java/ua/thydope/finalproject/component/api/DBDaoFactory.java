@@ -3,7 +3,6 @@ package ua.thydope.finalproject.component.api;
 import java.sql.Connection;
 
 import ua.thydope.finalproject.component.account.AccountDBDao;
-import ua.thydope.finalproject.component.subject.SubjectDBDao;
 
 public class DBDaoFactory implements DaoFactory, AutoCloseable {
   private static ThreadLocal<DBDaoFactory> localInstance = new ThreadLocal<>();
@@ -31,10 +30,9 @@ public class DBDaoFactory implements DaoFactory, AutoCloseable {
     switch (klass.getSimpleName()) {
     case "Account":
       return (Dao<T>) new AccountDBDao(getInstance().connection);
-    case "Subject":
-      return (Dao<T>) new SubjectDBDao(getInstance().connection);
+    default:
+      return null;
     }
-    return null;
   }
 
   @Override
