@@ -33,7 +33,7 @@ public abstract class DBDao<T extends Entity> implements Dao<T> {
 
   protected abstract String getFindByKeyQuery();
 
-  protected abstract ResultSet executeFind(PreparedStatement ps, T.Key key);
+  protected abstract ResultSet executeFind(PreparedStatement ps, Integer key);
 
   protected abstract ResultSetConverter<T> converter();
 
@@ -43,7 +43,7 @@ public abstract class DBDao<T extends Entity> implements Dao<T> {
     closeStatement(createStatement);
   }
 
-  public Optional<T> find(T.Key key) {
+  public Optional<T> find(Integer key) {
     PreparedStatement createStatement = getPreparedStatement(
         getFindByKeyQuery());
     ResultSet rs = executeFind(createStatement, key);

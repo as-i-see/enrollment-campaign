@@ -6,7 +6,7 @@ import java.util.Optional;
 public interface Dao<T extends Entity> {
   void create(T entity);
 
-  Optional<T> find(T.Key key);
+  Optional<T> find(Integer key);
 
   List<T> findAll();
 

@@ -9,24 +9,17 @@ public class Entity {
     this.id = id;
   }
 
-  public class Key {
-    public final Integer id = Entity.this.id;
-    private Class<? extends Entity> enclosingClass = Entity.this.getClass();
+  public Integer getId() {
+    return this.id;
+  }
 
-    @Override
-    public int hashCode() {
-      return Objects.hash(id, enclosingClass);
-    }
+  @Override
+  public int hashCode() {
+    return super.hashCode();
+  }
 
-    @Override
-    public boolean equals(Object o) {
-      if (this == o)
-        return true;
-      if (o == null || getClass() != o.getClass())
-        return false;
-      Entity.Key otherKey = (Entity.Key) o;
-      return Objects.equals(enclosingClass, otherKey.enclosingClass)
-          && Objects.equals(id, otherKey.id);
-    }
+  @Override
+  public boolean equals(Object o) {
+    return super.equals(o);
   }
 }

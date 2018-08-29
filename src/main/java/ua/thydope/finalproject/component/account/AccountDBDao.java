@@ -58,10 +58,10 @@ public class AccountDBDao extends DBDao<Account> {
   }
 
   @Override
-  protected ResultSet executeFind(PreparedStatement ps, Account.Key key) {
+  protected ResultSet executeFind(PreparedStatement ps, Integer key) {
     ResultSet rs = null;
     try {
-      ps.setInt(1, key.id);
+      ps.setInt(1, key);
       rs = ps.executeQuery();
     } catch (SQLException e) {
       e.printStackTrace();

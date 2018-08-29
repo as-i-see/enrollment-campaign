@@ -1,48 +1,22 @@
 package ua.thydope.finalproject.component.api;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
-public class EntityMapper<T extends Entity> extends Entity {
-  protected Dao<T> dao;
-  private Map<T.Key, T> map = new HashMap<>();
+public class EntityMapper<K, V extends Entity> {
+  protected Dao<V> dao;
+  private Map<K, V> map = new HashMap<>();
 
-  EntityMapper(Dao<T> dao) {
-    super(0);
+  EntityMapper(Dao<V> dao) {
     this.dao = dao;
   }
 
-  public T get(T.Key key) {
+  public V get(K key) {
     return map.get(key);
   }
 
-  public List<T> findAll() {
+  public List<V> findAll() {
     return dao.findAll();
-  }
-
-  public class Key extends Entity.Key {
-    Type enclosingMapperGenericType = getClass().getEnclosingClass()
-        .getTypeParameters()[0].getGenericDeclaration();
-
-    @Override
-    public int hashCode() {
-      return Objects.hashCode(enclosingMapperGenericType);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      if (this == o)
-        return true;
-      if (o == null)
-        return false;
-      if (getClass() != o.getClass())
-        return false;
-      EntityMapper.Key otherKey = (EntityMapper.Key) o;
-      return Objects.equals(this.enclosingMapperGenericType.getTypeName(),
-          otherKey.enclosingMapperGenericType.getTypeName());
-    }
   }
 }
