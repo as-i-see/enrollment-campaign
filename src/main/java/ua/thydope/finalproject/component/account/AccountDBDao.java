@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 import ua.thydope.finalproject.component.api.DBDao;
+import ua.thydope.finalproject.component.api.MapperRegistry;
+import ua.thydope.finalproject.component.role.Role;
 import ua.thydope.finalproject.controller.converter.ResultSetConverter;
 
 public class AccountDBDao extends DBDao<Account> {
@@ -19,7 +21,7 @@ public class AccountDBDao extends DBDao<Account> {
   @Override
   protected String getCreateQuery() {
     return "INSERT INTO account "
-        + "(username, password, role_id) VALUES (?, ?, ?)";
+        + "(username, password, role_id) VALUES (?, ?, 2)";
   }
 
   @Override
@@ -32,7 +34,6 @@ public class AccountDBDao extends DBDao<Account> {
     try {
       ps.setString(1, entity.getUsername());
       ps.setString(2, entity.getPassword());
-      ps.setInt(3, AccountType.USER.getIndex());
       ps.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -48,7 +49,8 @@ public class AccountDBDao extends DBDao<Account> {
         Integer id = rs.getInt(1);
         String username = rs.getString(2);
         String pwd = rs.getString(3);
-        String role = "ADMIN";
+        Integer role_id = rs.getInt(4);
+        Role role = MapperRegistry.mapperFor(Role.class).get(role_id);
         account = new Account(id, username, pwd, role);
       } catch (SQLException e) {
         e.printStackTrace();

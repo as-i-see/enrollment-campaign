@@ -1,5 +1,6 @@
 package ua.thydope.finalproject.controller.frontcommand;
 
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
 
@@ -11,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import ua.thydope.finalproject.component.account.Account;
 import ua.thydope.finalproject.component.account.AccountService;
-import ua.thydope.finalproject.component.account.AccountType;
 import ua.thydope.finalproject.controller.converter.ConversionService;
 
 class LoginCommand implements Command {
@@ -27,7 +27,7 @@ class LoginCommand implements Command {
     DataSource pool = (DataSource) req.getServletContext().getAttribute("pool");
     AccountService accountService = new AccountService(pool);
     accountService.authorize(targetAccount);
-    if (targetAccount.getRole() != AccountType.GUEST) {
+    if (Objects.nonNull(targetAccount.getRole())) {
       // LOGGER.debug("Logged as: {}", account.get().toString());
       req.getSession().setAttribute("account", targetAccount);
       Set<String> activeAccounts = (ConcurrentSkipListSet<String>) req

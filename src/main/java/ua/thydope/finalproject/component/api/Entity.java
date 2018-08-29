@@ -1,7 +1,5 @@
 package ua.thydope.finalproject.component.api;
 
-import java.util.Objects;
-
 public class Entity {
   private Integer id;
 
@@ -15,7 +13,7 @@ public class Entity {
 
   @Override
   public int hashCode() {
-    return super.hashCode();
+    return id;
   }
 
   @Override

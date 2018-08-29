@@ -2,6 +2,7 @@ package ua.thydope.finalproject.component.enrollee;
 
 import java.util.List;
 
+import lombok.Data;
 import ua.thydope.finalproject.component.api.Entity;
 import ua.thydope.finalproject.component.assessment.Assessment;
 import ua.thydope.finalproject.component.specialty.Specialty;
@@ -18,4 +19,6 @@ public class Enrollee extends Entity {
   public Enrollee(Integer id) {
     super(id);
   }
+
+
 }
