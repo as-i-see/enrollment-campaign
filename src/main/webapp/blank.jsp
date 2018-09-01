@@ -8,16 +8,19 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-          type="text/css">
-    <link rel="stylesheet" href="theme.css" type="text/css">
+          href="https://bootswatch.com/4/lumen/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+          crossorigin="anonymous">
 </head>
 
 <body class="">
 <nav class="navbar navbar-expand-md bg-primary text-uppercase text-center navbar-dark sticky-top py-1">
     <div class="container-fluid">
-        <a class="navbar-brand mx-auto w-50" href="#">Navbar</a>
+        <a class="navbar-brand mx-auto w-50" href="#">~Enrollment campaign~</a>
         <button class="navbar-toggler navbar-toggler-right" type="button"
                 data-toggle="collapse" data-target="#navbar2SupportedContent">
             <span class="navbar-toggler-icon"></span>
@@ -26,10 +29,10 @@
              id="navbar2SupportedContent">
             <a class="btn navbar-btn btn-primary ml-2 text-white btn-lg mr-auto w-50"
                data-toggle="modal" data-target="#login-modal">
-                <i class="fa d-inline fa-lg fa-user-circle-o"></i> Sign in</a>
+                <i class="fa d-inline fa-lg fa-user-circle-o"></i> ~Sign in~</a>
             <div class="btn-group btn-group-sm px-5 ml-auto w-25">
                 <button class="btn btn-primary dropdown-toggle"
-                        data-toggle="dropdown"> Language
+                        data-toggle="dropdown"> ~Language~
                 </button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="#">English</a>
@@ -57,7 +60,7 @@
                                 <label>Email address</label>
                                 <input type="text" class="form-control"
                                        placeholder="Enter login"
-                                       name="login">
+                                       name="username">
                                 <small class="form-text text-muted">We'll never
                                     share your email with anyone else.
                                 </small>
@@ -81,9 +84,15 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"
+        integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

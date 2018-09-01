@@ -1,22 +1,27 @@
 package ua.thydope.finalproject.component.api;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
-public class EntityMapper<K, V extends Entity> {
-  protected Dao<V> dao;
-  private Map<K, V> map = new HashMap<>();
+public class EntityMapper<T extends Entity> {
+  protected DBDao<T> dao;
+  private Map<Integer, T> map = new HashMap<>();
 
-  EntityMapper(Dao<V> dao) {
+  public EntityMapper(DBDao<T> dao) {
     this.dao = dao;
   }
 
-  public V get(K key) {
-    return map.get(key);
+  public T get(Integer key) {
+    T value = map.get(key);
+    if (Objects.isNull(value)) {
+      value = dao.find(key).orElseThrow(RuntimeException::new);
+      map.put(key, value);
+    }
+    return value;
   }
 
-  public List<V> findAll() {
-    return dao.findAll();
-  }
+  /*
+   * public List<V> findAll() { return dao.findAll(); }
+   */
 }

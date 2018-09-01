@@ -4,14 +4,17 @@ public class CommandFactory {
 
   public static Command findGetCommand(String location) {
     switch (location) {
-    case "subjects": {
-      return new SubjectsListCommand();
-    }
     case "login": {
       return new LoginCommand();
     }
-    default: {
+    case "index": {
       return new IndexPageCommand();
+    }
+    case "signup": {
+      return new SignUpCommand();
+    }
+    default: {
+      return new GetBlankCommand();
     }
     }
   }

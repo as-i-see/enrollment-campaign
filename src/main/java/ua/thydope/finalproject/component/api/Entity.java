@@ -11,6 +11,10 @@ public class Entity {
     return this.id;
   }
 
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
   @Override
   public int hashCode() {
     return id;

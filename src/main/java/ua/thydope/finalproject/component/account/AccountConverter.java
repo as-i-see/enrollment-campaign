@@ -13,8 +13,7 @@ public final class AccountConverter implements ParamMapConverter<Account> {
 
   @Override
   public Account apply(Map<String, String[]> source) {
-
-    String username = source.get("login")[0];
+    String username = source.get("username")[0];
     String password = source.get("pwd")[0];
     return new Account(username, password);
   }

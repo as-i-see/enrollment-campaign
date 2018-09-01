@@ -2,9 +2,11 @@ package ua.thydope.finalproject.component.api;
 
 import java.sql.Connection;
 
-import ua.thydope.finalproject.component.account.AccountDBDao;
+import ua.thydope.finalproject.component.account.AccountDao;
+import ua.thydope.finalproject.component.enrollee.EnrolleeDao;
+import ua.thydope.finalproject.component.role.RoleDao;
 
-public class DBDaoFactory implements DaoFactory, AutoCloseable {
+public class DBDaoFactory implements DaoFactory {
   private static ThreadLocal<DBDaoFactory> localInstance = new ThreadLocal<>();
 
   private Connection connection;
@@ -29,14 +31,13 @@ public class DBDaoFactory implements DaoFactory, AutoCloseable {
   public <T extends Entity> Dao<T> getDao(Class<T> klass) {
     switch (klass.getSimpleName()) {
     case "Account":
-      return (Dao<T>) new AccountDBDao(getInstance().connection);
+      return (Dao<T>) new AccountDao(getInstance().connection);
+    case "Role":
+      return (Dao<T>) new RoleDao(getInstance().connection);
+    case "Enrollee":
+      return (Dao<T>) new EnrolleeDao(getInstance().connection);
     default:
       return null;
     }
-  }
-
-  @Override
-  public void close() {
-    localInstance.set(null);
   }
 }
