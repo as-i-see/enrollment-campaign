@@ -7,6 +7,9 @@ public class CommandFactory {
     case "login": {
       return new LoginCommand();
     }
+    case "logout": {
+      return new LogOut();
+    }
     case "index": {
       return new IndexPageCommand();
     }

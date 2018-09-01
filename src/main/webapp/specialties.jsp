@@ -29,10 +29,10 @@
              id="navbar2SupportedContent">
             <div class="btn-group flex-row align-self-stretch justify-content-center align-items-center d-flex w-75 mx-5 py-3">
                 <a class="btn btn-secondary btn-lg text-white m-0 p-1 flex-row align-self-center d-flex justify-content-center align-items-center btn-block"
-                   href="">${account.username}&nbsp;
+                   href="#">${account.username}&nbsp;
                     <span class="badge badge-secondary ml-1 text-warning badge-pill m-1 p-1 border border-light">1</span>
                 </a>
-                <a href="#"
+                <a href="logout"
                    class="btn btn-secondary m-0 px-1 d-flex flex-row justify-content-center align-items-center">
                     <br>
                     <i class="fa fa-sign-out fa-2x" aria-hidden="true"></i>
