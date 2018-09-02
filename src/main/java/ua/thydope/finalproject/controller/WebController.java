@@ -23,14 +23,14 @@ public class WebController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
     response.setCharacterEncoding("UTF-8");
     request.setCharacterEncoding("UTF-8");
-    String path = request.getRequestURI();
-    path = path.replaceAll(".*enrollment/", "");
+    String path = request.getRequestURI()
+        .substring(request.getContextPath().length() + 1);
     Command command = CommandFactory.findGetCommand(path);
     path = command.perform(request);
-    request.getRequestDispatcher(path).forward(request, response);
+    getServletContext().getRequestDispatcher("/" + path).forward(request,
+        response);
 
   }
 

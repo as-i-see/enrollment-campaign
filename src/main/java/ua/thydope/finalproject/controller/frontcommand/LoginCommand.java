@@ -16,7 +16,6 @@ class LoginCommand implements Command {
   public String perform(HttpServletRequest req) {
     Account targetAccount = ConversionService.convert(req.getParameterMap(),
         Account.class);
-    ServletContext context = req.getServletContext();
     if (Objects.isNull(
         req.getServletContext().getAttribute(targetAccount.getUsername()))) {
       DataSource pool = (DataSource) req.getServletContext()

@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setBundle basename=""/>
 <!DOCTYPE html>
 <html>
 
@@ -20,7 +23,9 @@
 <body class="">
 <nav class="navbar navbar-expand-md bg-primary text-uppercase text-center navbar-dark sticky-top py-1">
     <div class="container-fluid">
-        <a class="navbar-brand mx-auto w-50" href="#">~Enrollment campaign~</a>
+        <a class="navbar-brand mx-auto w-50" href="#">
+            <fmt:message key="nav.title"/>
+        </a>
         <button class="navbar-toggler navbar-toggler-right" type="button"
                 data-toggle="collapse" data-target="#navbar2SupportedContent">
             <span class="navbar-toggler-icon"></span>

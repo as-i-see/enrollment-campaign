@@ -5,10 +5,12 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
+import java.util.Locale;
 
-public class LoggingFilter implements Filter {
-  private static Logger log;
+public class FileLogger implements Filter {
+  private static org.slf4j.Logger log;
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
@@ -28,4 +30,6 @@ public class LoggingFilter implements Filter {
 
   @Override
   public void destroy() {}
+
+
 }

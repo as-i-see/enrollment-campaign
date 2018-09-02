@@ -11,7 +11,7 @@ public class CommandFactory {
       return new LogOut();
     }
     case "index": {
-      return new IndexPageCommand();
+      return new GetBlankCommand();
     }
     case "signup": {
       return new SignUpCommand();
