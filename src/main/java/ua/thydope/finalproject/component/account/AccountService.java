@@ -3,20 +3,16 @@ package ua.thydope.finalproject.component.account;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Objects;
-import java.util.Optional;
 
 import javax.sql.DataSource;
 
 import ua.thydope.finalproject.component.api.DBDaoFactory;
 import ua.thydope.finalproject.component.api.MapperRegistry;
-import ua.thydope.finalproject.component.enrollee.Enrollee;
-import ua.thydope.finalproject.component.enrollee.EnrolleeDao;
+import ua.thydope.finalproject.component.api.Service;
 
-public class AccountService {
-  private DataSource dataSource;
-
+public class AccountService extends Service {
   public AccountService(DataSource dataSource) {
-    this.dataSource = dataSource;
+    super(dataSource);
   }
 
   /**
@@ -41,7 +37,6 @@ public class AccountService {
       throw new RuntimeException(e);
     }
   }
-
 
   // public
 }

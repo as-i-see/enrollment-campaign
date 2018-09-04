@@ -1,14 +1,12 @@
 package ua.thydope.finalproject.component.subject;
 
-import java.util.Objects;
-
 import ua.thydope.finalproject.component.api.Entity;
 
 public class Subject extends Entity {
   private String name;
 
-  public Subject(String name) {
-    super(0);
+  Subject(Integer id, String name) {
+    super(id);
     this.name = name;
   }
 

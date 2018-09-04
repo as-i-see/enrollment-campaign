@@ -5,13 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
-import java.util.Optional;
 
 import ua.thydope.finalproject.controller.converter.ResultSetConverter;
 
-// TODO all queries to abstract factory
 public abstract class DBDao<T extends Entity> implements Dao<T> {
   protected Connection connection;
+  protected Queries queries;
 
   public DBDao(Connection connection) {
     this.connection = connection;
@@ -27,29 +26,34 @@ public abstract class DBDao<T extends Entity> implements Dao<T> {
     }
   }
 
-  protected abstract String getCreateQuery();
-
   protected abstract void executeCreate(PreparedStatement ps, T entity);
 
-  protected abstract String getFindByKeyQuery();
-
-  protected abstract ResultSet executeFind(PreparedStatement ps, Integer key);
+  protected ResultSet executeFind(PreparedStatement ps, Integer key) {
+    ResultSet rs = null;
+    try {
+      ps.setInt(1, key);
+      rs = ps.executeQuery();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return rs;
+  }
 
   protected abstract ResultSetConverter<T> converter();
 
   public void create(T entity) {
-    PreparedStatement createStatement = getPreparedStatement(getCreateQuery());
+    PreparedStatement createStatement = getPreparedStatement(queries.create());
     executeCreate(createStatement, entity);
     closeStatement(createStatement);
   }
 
-  public Optional<T> find(Integer key) {
+  public T find(Integer key) {
     PreparedStatement createStatement = getPreparedStatement(
         getFindByKeyQuery());
     ResultSet rs = executeFind(createStatement, key);
     T entity = converter().apply(rs);
     closeStatement(createStatement);
-    return Optional.ofNullable(entity);
+    return entity;
   }
 
   protected PreparedStatement getPreparedStatement(String query) {
@@ -60,6 +64,28 @@ public abstract class DBDao<T extends Entity> implements Dao<T> {
       e.printStackTrace();
     }
     return ps;
+  }
+
+  public interface Queries {
+    default String create() {
+      return "";
+    }
+
+    default String find() {
+      return "";
+    }
+
+    default String findAll() {
+      return "";
+    }
+
+    default String update() {
+      return "";
+    }
+
+    default String delete() {
+      return "";
+    }
   }
 
 }

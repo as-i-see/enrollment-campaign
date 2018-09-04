@@ -22,6 +22,8 @@ public class ContextListener implements ServletContextListener {
 
   @Override
   public void contextInitialized(ServletContextEvent sce) {
+
+
     Set<Account> activeAccounts = new HashSet<>();
     sce.getServletContext().setAttribute("activeAccounts", activeAccounts);
     LOGGER.debug(

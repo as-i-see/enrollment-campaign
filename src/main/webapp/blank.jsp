@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setBundle basename=""/>
+
 <!DOCTYPE html>
 <html>
 
@@ -21,10 +21,11 @@
 </head>
 
 <body class="">
+<fmt:setBundle basename="pagecontent" var="lang"/>
 <nav class="navbar navbar-expand-md bg-primary text-uppercase text-center navbar-dark sticky-top py-1">
     <div class="container-fluid">
         <a class="navbar-brand mx-auto w-50" href="#">
-            <fmt:message key="nav.title"/>
+            sos
         </a>
         <button class="navbar-toggler navbar-toggler-right" type="button"
                 data-toggle="collapse" data-target="#navbar2SupportedContent">
@@ -70,6 +71,7 @@
                                     share your email with anyone else.
                                 </small>
                             </div>
+                            <fmt:message key="title" bundle="${lang}"/>
                             <div class="form-group">
                                 <label>Password</label>
                                 <input type="password" class="form-control"

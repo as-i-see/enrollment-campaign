@@ -56,18 +56,6 @@ public class EnrolleeDao extends DBDao<Enrollee> {
   }
 
   @Override
-  protected ResultSet executeFind(PreparedStatement ps, Integer key) {
-    ResultSet rs = null;
-    try {
-      ps.setInt(1, key);
-      rs = ps.executeQuery();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return rs;
-  }
-
-  @Override
   protected ResultSetConverter<Enrollee> converter() {
     return (ResultSet rs) -> {
       Enrollee enrollee = null;
