@@ -3,10 +3,12 @@ package ua.thydope.finalproject.component.api;
 import java.sql.Connection;
 
 import ua.thydope.finalproject.component.account.AccountDao;
+import ua.thydope.finalproject.component.assessment.AssessmentDao;
 import ua.thydope.finalproject.component.enrollee.EnrolleeDao;
 import ua.thydope.finalproject.component.role.RoleDao;
+import ua.thydope.finalproject.component.subject.SubjectDao;
 
-public class DBDaoFactory implements DaoFactory {
+public class DBDaoFactory {
   private static ThreadLocal<DBDaoFactory> localInstance = new ThreadLocal<>();
 
   private Connection connection;
@@ -23,19 +25,19 @@ public class DBDaoFactory implements DaoFactory {
     localInstance.set(new DBDaoFactory(connection));
   }
 
-  public static <T extends Entity> Dao<T> daoFor(Class<T> klass) {
-    return getInstance().getDao(klass);
-  }
-
-  @Override
-  public <T extends Entity> Dao<T> getDao(Class<T> klass) {
+  public static <T extends Entity> DBDao<?> daoFor(Class<T> klass) {
+    Connection currentConnection = getInstance().connection;
     switch (klass.getSimpleName()) {
     case "Account":
-      return (Dao<T>) new AccountDao(getInstance().connection);
+      return new AccountDao(currentConnection);
     case "Role":
-      return (Dao<T>) new RoleDao(getInstance().connection);
+      return new RoleDao(currentConnection);
     case "Enrollee":
-      return (Dao<T>) new EnrolleeDao(getInstance().connection);
+      return new EnrolleeDao(currentConnection);
+    case "Subject":
+      return new SubjectDao(currentConnection);
+    case "Assessment":
+      return new AssessmentDao(currentConnection);
     default:
       return null;
     }

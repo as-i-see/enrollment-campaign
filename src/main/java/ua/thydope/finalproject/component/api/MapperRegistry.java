@@ -5,20 +5,10 @@ import java.util.Map;
 
 public class MapperRegistry implements AutoCloseable {
   private static ThreadLocal<MapperRegistry> threadLocal = new ThreadLocal<>();
-  private DaoFactory daoFactory;
-  private Map<Class<? extends Entity>, EntityMapper<? extends Entity>> map;
+  private Map<Class<? extends Entity>, EntityMapper<? extends Entity>> map = new HashMap<>();
 
-  private MapperRegistry(DaoFactory daoFactory) {
-    this.map = new HashMap<>();
-    this.daoFactory = daoFactory;
-  }
-
-  public static MapperRegistry getInstance() {
+  private static MapperRegistry getInstance() {
     return threadLocal.get();
-  }
-
-  public static void use(DaoFactory daoFactory) {
-    threadLocal.set(new MapperRegistry(daoFactory));
   }
 
   public static <T extends Entity> EntityMapper<T> mapperFor(Class<T> klass) {
@@ -27,11 +17,15 @@ public class MapperRegistry implements AutoCloseable {
     if (entityMapper != null) {
       return entityMapper;
     } else {
-      DBDao<T> dao = (DBDao<T>) getInstance().daoFactory.getDao(klass);
+      DBDao<T> dao = (DBDao<T>) DBDaoFactory.daoFor(klass);
       entityMapper = new EntityMapper<>(dao);
       getInstance().map.put(klass, entityMapper);
       return entityMapper;
     }
+  }
+
+  public static void restart() {
+    threadLocal.set(new MapperRegistry());
   }
 
   @Override

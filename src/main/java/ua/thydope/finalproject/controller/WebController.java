@@ -31,7 +31,6 @@ public class WebController extends HttpServlet {
     path = command.perform(request);
     getServletContext().getRequestDispatcher("/" + path).forward(request,
         response);
-
   }
 
   /**

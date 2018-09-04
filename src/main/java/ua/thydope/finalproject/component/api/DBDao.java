@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Objects;
 
 import ua.thydope.finalproject.controller.converter.ResultSetConverter;
@@ -28,6 +29,21 @@ public abstract class DBDao<T extends Entity> implements Dao<T> {
 
   protected abstract void executeCreate(PreparedStatement ps, T entity);
 
+  @Override
+  public List<T> findAll() {
+    return null;
+  }
+
+  @Override
+  public void update(T entity) {
+
+  }
+
+  @Override
+  public void delete(Integer id) {
+
+  }
+
   protected ResultSet executeFind(PreparedStatement ps, Integer key) {
     ResultSet rs = null;
     try {
@@ -48,11 +64,10 @@ public abstract class DBDao<T extends Entity> implements Dao<T> {
   }
 
   public T find(Integer key) {
-    PreparedStatement createStatement = getPreparedStatement(
-        getFindByKeyQuery());
-    ResultSet rs = executeFind(createStatement, key);
+    PreparedStatement findStatement = getPreparedStatement(queries.find());
+    ResultSet rs = executeFind(findStatement, key);
     T entity = converter().apply(rs);
-    closeStatement(createStatement);
+    closeStatement(findStatement);
     return entity;
   }
 
@@ -66,7 +81,7 @@ public abstract class DBDao<T extends Entity> implements Dao<T> {
     return ps;
   }
 
-  public interface Queries {
+  protected interface Queries {
     default String create() {
       return "";
     }

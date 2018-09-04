@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 import ua.thydope.finalproject.component.api.DBDao;
 import ua.thydope.finalproject.controller.converter.ResultSetConverter;
@@ -12,27 +11,7 @@ import ua.thydope.finalproject.controller.converter.ResultSetConverter;
 public class EnrolleeDao extends DBDao<Enrollee> {
   public EnrolleeDao(Connection connection) {
     super(connection);
-  }
-
-  @Override
-  public List<Enrollee> findAll() {
-    return null;
-  }
-
-  @Override
-  public void update(Enrollee entity) {
-
-  }
-
-  @Override
-  public void delete(int id) {
-
-  }
-
-  @Override
-  protected String getCreateQuery() {
-    return "INSERT INTO enrollee (account_id, first_name, last_name, email, "
-        + "phone_number) VALUES (?, ?, ?, ?, ?)";
+    queries = new EnrolleeQueries();
   }
 
   @Override
@@ -47,12 +26,6 @@ public class EnrolleeDao extends DBDao<Enrollee> {
     } catch (SQLException e) {
       e.printStackTrace();
     }
-  }
-
-  @Override
-  protected String getFindByKeyQuery() {
-    return "SELECT account_id, first_name, last_name, email, phone_number "
-        + "FROM enrollee WHERE account_id=?";
   }
 
   @Override
@@ -72,5 +45,19 @@ public class EnrolleeDao extends DBDao<Enrollee> {
       }
       return enrollee;
     };
+  }
+
+  private class EnrolleeQueries implements Queries {
+    @Override
+    public String create() {
+      return "INSERT INTO enrollee (account_id, first_name, last_name, email, "
+          + "phone_number) VALUES (?, ?, ?, ?, ?)";
+    }
+
+    @Override
+    public String find() {
+      return "SELECT account_id, first_name, last_name, email, phone_number "
+          + "FROM enrollee WHERE account_id=?";
+    }
   }
 }

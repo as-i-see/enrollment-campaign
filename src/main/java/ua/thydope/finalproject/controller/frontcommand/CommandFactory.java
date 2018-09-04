@@ -16,6 +16,12 @@ public class CommandFactory {
     case "signup": {
       return new SignUpCommand();
     }
+    case "assessments": {
+      return new ListAssessments();
+    }
+    case "requestassess": {
+      return new RequestAssessment();
+    }
     default: {
       return new GetBlankCommand();
     }

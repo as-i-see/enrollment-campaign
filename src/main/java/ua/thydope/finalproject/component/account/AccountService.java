@@ -25,18 +25,17 @@ public class AccountService extends Service {
   public void authorize(Account account) {
     try (Connection connection = dataSource.getConnection()) {
       DBDaoFactory.use(connection);
-      MapperRegistry.use(DBDaoFactory.getInstance());
+      MapperRegistry.restart();
       AccountDao accountDao = (AccountDao) DBDaoFactory.daoFor(Account.class);
-      Integer persistedAccountId = accountDao
+      Account persistedAccount = accountDao
           .findByUsername(account.getUsername())
           .filter(
               acc -> Objects.equals(account.getPassword(), acc.getPassword()))
-          .orElseThrow(RuntimeException::new).getRole_id();
-      account.setRole_id(persistedAccountId);
+          .orElseThrow(RuntimeException::new);
+      account.setId(persistedAccount.getId());
+      account.setRole_id(persistedAccount.getRole_id());
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
   }
-
-  // public
 }

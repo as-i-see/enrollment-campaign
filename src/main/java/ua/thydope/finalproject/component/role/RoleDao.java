@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 import ua.thydope.finalproject.component.api.DBDao;
 import ua.thydope.finalproject.controller.converter.ResultSetConverter;
@@ -12,36 +11,12 @@ import ua.thydope.finalproject.controller.converter.ResultSetConverter;
 public class RoleDao extends DBDao<Role> {
   public RoleDao(Connection connection) {
     super(connection);
-  }
-
-  @Override
-  protected String getCreateQuery() {
-    return null;
-  }
-
-  @Override
-  public List<Role> findAll() {
-    return null;
-  }
-
-  @Override
-  public void update(Role entity) {
-
-  }
-
-  @Override
-  public void delete(int id) {
-
+    queries = new RoleQueries();
   }
 
   @Override
   protected void executeCreate(PreparedStatement ps, Role entity) {
 
-  }
-
-  @Override
-  protected String getFindByKeyQuery() {
-    return "SELECT id, name FROM role WHERE id=?";
   }
 
   @Override
@@ -72,8 +47,10 @@ public class RoleDao extends DBDao<Role> {
     };
   }
 
-  @Override
-  public void create(Role entity) {
-    super.create(entity);
+  private class RoleQueries implements Queries {
+    @Override
+    public String find() {
+      return "SELECT id, name FROM role WHERE id=?";
+    }
   }
 }
