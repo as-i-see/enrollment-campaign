@@ -5,6 +5,8 @@ import java.util.Map;
 
 import ua.thydope.finalproject.component.account.Account;
 import ua.thydope.finalproject.component.account.AccountConverter;
+import ua.thydope.finalproject.component.assessment.Assessment;
+import ua.thydope.finalproject.component.assessment.AssessmentConverter;
 import ua.thydope.finalproject.component.enrollee.Enrollee;
 import ua.thydope.finalproject.component.enrollee.EnrolleeConverter;
 
@@ -15,6 +17,7 @@ public class ConversionService {
     converterMap = new HashMap<>();
     converterMap.put(Account.class, AccountConverter.getInstance());
     converterMap.put(Enrollee.class, EnrolleeConverter.getInstance());
+    converterMap.put(Assessment.class, AssessmentConverter.getInstance());
   }
 
   public static ConversionService getInstance() {

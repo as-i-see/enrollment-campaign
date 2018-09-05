@@ -2,7 +2,6 @@ package ua.thydope.finalproject.component.assessment;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -32,17 +31,23 @@ public class AssessmentService extends Service {
             .daoFor(Enrollee.class);
         Enrollee enrollee = enrolleeDao.find(account.getId());
         return getUserAssessments(enrollee);
+      } else {
+        return listToAssess();
       }
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
-    return Collections.emptyList();
   }
 
   private List<Assessment> getUserAssessments(Enrollee enrollee) {
 
     AssessmentDao dao = (AssessmentDao) DBDaoFactory.daoFor(Assessment.class);
     return dao.findUserAssessments(enrollee);
+  }
+
+  private List<Assessment> listToAssess() {
+    AssessmentDao dao = (AssessmentDao) DBDaoFactory.daoFor(Assessment.class);
+    return dao.findAll();
   }
 
   public void requestAssessment(Integer enrolleeId, Integer subjectId) {
@@ -53,7 +58,16 @@ public class AssessmentService extends Service {
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
+  }
 
+  public void assess(Assessment assessment) {
+    try (Connection connection = dataSource.getConnection()) {
+      DBDaoFactory.use(connection);
+      AssessmentDao dao = (AssessmentDao) DBDaoFactory.daoFor(Assessment.class);
+      dao.update(assessment);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
   }
 
 }

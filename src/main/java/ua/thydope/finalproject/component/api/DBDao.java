@@ -36,23 +36,17 @@ public abstract class DBDao<T extends Entity> implements Dao<T> {
 
   @Override
   public void update(T entity) {
+    PreparedStatement updateStatement = getPreparedStatement(queries.update());
+    executeUpdate(updateStatement, entity);
+    closeStatement(updateStatement);
+  }
 
+  protected void executeUpdate(PreparedStatement ps, T entity) {
   }
 
   @Override
   public void delete(Integer id) {
 
-  }
-
-  protected ResultSet executeFind(PreparedStatement ps, Integer key) {
-    ResultSet rs = null;
-    try {
-      ps.setInt(1, key);
-      rs = ps.executeQuery();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return rs;
   }
 
   protected abstract ResultSetConverter<T> converter();
@@ -69,6 +63,17 @@ public abstract class DBDao<T extends Entity> implements Dao<T> {
     T entity = converter().apply(rs);
     closeStatement(findStatement);
     return entity;
+  }
+
+  protected ResultSet executeFind(PreparedStatement ps, Integer key) {
+    ResultSet rs = null;
+    try {
+      ps.setInt(1, key);
+      rs = ps.executeQuery();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return rs;
   }
 
   protected PreparedStatement getPreparedStatement(String query) {

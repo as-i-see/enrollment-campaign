@@ -20,6 +20,23 @@ public class AssessmentDao extends DBDao<Assessment> {
     queries = new AssessmentQueries();
   }
 
+  @Override
+  public List<Assessment> findAll() {
+    PreparedStatement findAllStatement = getPreparedStatement(
+        queries.findAll());
+    List<Assessment> list = new ArrayList<>();
+    try {
+      ResultSet rs = findAllStatement.executeQuery();
+      while (rs.next()) {
+        list.add(adminListConverter().apply(rs));
+      }
+      closeStatement(findAllStatement);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return list;
+  }
+
   List<Assessment> findUserAssessments(Enrollee enrollee) {
     List<Assessment> list = new ArrayList<>();
     try {
@@ -56,9 +73,41 @@ public class AssessmentDao extends DBDao<Assessment> {
     };
   }
 
+  private ResultSetConverter<Assessment> adminListConverter() {
+    return (ResultSet rs) -> {
+      Assessment assessment = null;
+      try {
+        Integer id = rs.getInt(1);
+        EntityMapper<Enrollee> enrolleeMapper = MapperRegistry
+            .mapperFor(Enrollee.class);
+        Integer enrolleeId = rs.getInt(2);
+        Enrollee enrollee = enrolleeMapper.get(enrolleeId);
+        EntityMapper<Subject> subjectMapper = MapperRegistry
+            .mapperFor(Subject.class);
+        Integer subjectId = rs.getInt(3);
+        Subject subject = subjectMapper.get(subjectId);
+        assessment = new Assessment(id, subject, enrollee);
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+      return assessment;
+    };
+  }
+
   @Override
   protected void executeCreate(PreparedStatement ps, Assessment entity) {
 
+  }
+
+  @Override
+  protected void executeUpdate(PreparedStatement ps, Assessment entity) {
+    try {
+      ps.setDouble(1, entity.getGrade());
+      ps.setInt(2, entity.getId());
+      ps.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   void create(Integer subjectId, Integer enrolleeId) {
@@ -77,7 +126,13 @@ public class AssessmentDao extends DBDao<Assessment> {
   private class AssessmentQueries implements Queries {
     @Override
     public String update() {
-      return null;
+      return "UPDATE assessment SET grade=? WHERE id=?";
+    }
+
+    @Override
+    public String findAll() {
+      return "SELECT id, enrollee_id, subject_id FROM assessment "
+          + "WHERE grade IS NULL";
     }
 
     @Override

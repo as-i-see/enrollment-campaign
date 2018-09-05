@@ -22,6 +22,9 @@ public class CommandFactory {
     case "requestassess": {
       return new RequestAssessment();
     }
+    case "assess": {
+      return new Assess();
+    }
     default: {
       return new GetBlankCommand();
     }

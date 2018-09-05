@@ -65,32 +65,36 @@
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
                     <tr>
+                        <th>Subject</th>
                         <th>First Name</th>
                         <th>Last Name</th>
+                        <th>Result</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach items="${assessments}" var="assessment">
                         <tr>
                             <td>${assessment.subject.name}</td>
-                            <c:choose>
-                                <c:when test="${assessment.grade > 0}">
-                                    <td>${assessment.grade}</td>
-                                </c:when>
-                                <c:when test="${assessment.id > 0}">
-                                    <td>Registered</td>
-                                </c:when>
-                                <c:otherwise>
-                                    <td>
-                                        <a class="btn btn-primary"
-                                           href="requestassess?s=${assessment.subject.id}">
-                                            Register
-                                            <i class="fas fa-plus"></i>
-                                        </a>
-                                    </td>
-                                </c:otherwise>
-                            </c:choose>
-
+                            <td>${assessment.enrollee.firstName}</td>
+                            <td>${assessment.enrollee.lastName}</td>
+                            <td>
+                                <form class="form-inline"
+                                      action="assess?id=${assessment.id}"
+                                      method="post">
+                                    <div class="input-group">
+                                        <input type="number"
+                                               class="form-control"
+                                               placeholder="Grade"
+                                               name="grade"
+                                        >
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary"
+                                                    type="submit">Set
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>

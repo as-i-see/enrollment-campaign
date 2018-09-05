@@ -21,6 +21,7 @@ public class RequestAssessment implements Command {
     AssessmentService service = new AssessmentService(dataSource);
     service.requestAssessment(enrolleeId, subjectId);
     List<Assessment> assessments = service.assessmentList(account);
+    req.setAttribute("account", account);
     req.setAttribute("assessments", assessments);
     return "WEB-INF/assessments.jsp";
   }
